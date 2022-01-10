@@ -14,12 +14,12 @@ namespace Web_I_O_Nitsche_Weismann
             HEALTH_AND_FITNESS,
             PHOTOGRAPHY
         }
-        public enum Type
+        public enum PriceType
         {
             Free,
             Paid
         }
-        public enum Content
+        public enum ContentRating
         {
             //Everyone,
             //Everyone 10+,
