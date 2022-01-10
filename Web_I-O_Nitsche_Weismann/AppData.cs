@@ -12,21 +12,24 @@ namespace Web_I_O_Nitsche_Weismann
         #region Members (date,tavg,tmin,tmax,prcp,snow,wdir,wspd,wpgt,pres,tsun)
 
         string _appName;
-        double _category;
-        double _tmin;
-        double _tmax;
-        double _prcp;
-        double _snow;
-        double _wdir;
-        double _wspd;
-        double _wpgt;
-        double _pres;
-        int _tsun;
+        myEnums _category;
+        int _rating;
+        int _reviews;
+        double _size;
+        decimal _installs;
+        myEnums _priceType;
+        double _price;
+        myEnums _contentRating;
+        myEnums _genres;
+        DateTime _lastUpdated;
+        string _currentVersion;
+        string _androidVersion;
 
         #endregion
 
         #region Properties (public get / private set) + Data Validation
-        public string Date
+
+        public string AppName
         {
             get
             {
@@ -34,191 +37,168 @@ namespace Web_I_O_Nitsche_Weismann
             }
             private set
             {
-                _appName = value;
-            }
-        }
-        public double AverageTemperature
-        {
-            get
-            {
-                return _category;
-            }
-            private set
-            {
-                if (value >= -273.15 && value <= 300)
+                if (value.Length > 2)
                 {
-                    _category = value;
+                    _appName = value;
                 }
                 else
                 {
-                    throw new Exception("Invalid Temperature");
-                }
-
-            }
-        }
-        public double MinimumTemperature
-        {
-            get
-            {
-                return _tmin;
-            }
-            private set
-            {
-                if (value >= -273.15 && value <= 300)
-                {
-                    _tmin = value;
-                }
-                else
-                {
-                    throw new Exception("Invalid Temperature");
-                }
-            }
-        }
-        public double MaximumTemperature
-        {
-            get
-            {
-                return _tmax;
-            }
-            private set
-            {
-                if (value >= -273.15 && value <= 300)
-                {
-                    _tmax = value;
-                }
-                else
-                {
-                    throw new Exception("Invalid Temperature");
-                }
-            }
-        }
-        public double MaximumPrecipitation
-        {
-            get
-            {
-                return _prcp;
-            }
-            private set
-            {
-                if (value >= 0 && value <= 100)
-                {
-                    _prcp = value;
-                }
-                else
-                {
-                    throw new Exception("Invalid Percipation");
-                }
-            }
-        }
-        public double Snow
-        {
-            get
-            {
-                return _snow;
-            }
-            private set
-            {
-                if (value >= 0)
-                {
-                    _snow = value;
-                }
-                else
-                {
-                    throw new Exception("Invalid Snow");
-                }
-            }
-        }
-        public double WindDirection
-        {
-            get
-            {
-                return _wdir;
-            }
-            private set
-            {
-                if (value >= 0 && value <= 360)
-                {
-                    _wdir = value;
-                }
-                else
-                {
-                    throw new Exception("Invalid Wind Direction");
-                }
-            }
-        }
-        public double WindSpeed
-        {
-            get
-            {
-                return _wspd;
-            }
-            private set
-            {
-                if (value >= 0)
-                {
-                    _wspd = value;
-                }
-                else
-                {
-                    throw new Exception("Invalid Wind Speed");
-                }
-            }
-        }
-        public double WindPeakGust
-        {
-            get
-            {
-                return _wpgt;
-            }
-            private set
-            {
-                if (value >= 0)
-                {
-                    _wpgt = value;
-                }
-                else
-                {
-                    throw new Exception("Invalid Wind Peak Gust");
-                }
-            }
-        }
-        public double Pressure
-        {
-            get
-            {
-                return _pres;
-            }
-            private set
-            {
-                if (value >= 500)
-                {
-                    _pres = value;
-                }
-                else
-                {
-                    throw new Exception("Invalid Pressure");
-                }
-            }
-        }
-        public int SunTime
-        {
-            get
-            {
-                return _tsun;
-            }
-            private set
-            {
-                if (value >= 0)
-                {
-                    _tsun = value;
-                }
-                else
-                {
-                    throw new Exception("Invalid Sun Time");
+                    throw new Exception("Invalid App Name");
                 }
             }
         }
 
+        public int Rating
+        {
+            get
+            {
+                return _rating;
+            }
+            private set
+            {
+                if (value < 0)
+                {
+                    _rating = value;
+                }
+                else
+                {
+                    throw new Exception("Invalid Rating Value");
+                }
+            }
+        }
+
+        public int Reviews
+        {
+            get
+            {
+                return _reviews;
+            }
+            private set
+            {
+                if (value < 0)
+                {
+                    _reviews = value;
+                }
+                else
+                {
+                    throw new Exception("Invalid Reviews Value");
+                }
+            }
+        }
+
+        public double Size
+        {
+            get
+            {
+                return _size;
+            }
+            private set
+            {
+                if (value < 0)
+                {
+                    _size = value;
+                }
+                else
+                {
+                    throw new Exception("Invalid Size Value");
+                }
+            }
+        }
+
+        public decimal Installs
+        {
+            get
+            {
+                return _installs;
+            }
+            private set
+            {
+                if (value < 0)
+                {
+                    _installs = value;
+                }
+                else
+                {
+                    throw new Exception("Invalid Installs Value");
+                }
+            }
+        }
+
+        public double Price
+        {
+            get
+            {
+                return _price;
+            }
+            private set
+            {
+                if (value < 0)
+                {
+                    _price = value;
+                }
+                else
+                {
+                    throw new Exception("Invalid Price Value");
+                }
+            }
+        }
+
+        public DateTime LastUpdated
+        {
+            get
+            {
+                return _lastUpdated;
+            }
+            private set
+            {
+                if (value > DateTime.Now)
+                {
+                    _lastUpdated = value;
+                }
+                else
+                {
+                    throw new Exception("Invalid Last Updated Date");
+                }
+            }
+        }
+
+        public string CurrentVersion
+        {
+            get
+            {
+                return _currentVersion;
+            }
+            private set
+            {
+                if (value.Length > 0)
+                {
+                    _currentVersion = value;
+                }
+                else
+                {
+                    throw new Exception("Invalid App-Version Name");
+                }
+            }
+        }
+
+        public string AndroidVersion
+        {
+            get
+            {
+                return _androidVersion;
+            }
+            private set
+            {
+                if (value.Length > 0)
+                {
+                    _androidVersion = value;
+                }
+                else
+                {
+                    throw new Exception("Invalid Android-Version Name");
+                }
+            }
+        }
 
         #endregion
 
@@ -227,23 +207,24 @@ namespace Web_I_O_Nitsche_Weismann
         {
 
         }
-
-        public AppData(string date, double tavg, double tmin, double tmax, double prcp, double snow, double wdir, double wspd, double wpgt, double pres, int tsun)
-        {
-            Date = date;
-            AverageTemperature = tavg;
-            MinimumTemperature = tmin;
-            MaximumTemperature = tmax;
-            MaximumPrecipitation = prcp;
-            Snow = snow;
-            WindDirection = wdir;
-            WindSpeed = wspd;
-            WindPeakGust = wpgt;
-            Pressure = pres;
-            SunTime = tsun;
-
-        }
         #endregion
+
+        //public AppData(string date, double tavg, double tmin, double tmax, double prcp, double snow, double wdir, double wspd, double wpgt, double pres, int tsun)
+        //{
+        //    Date = date;
+        //    AverageTemperature = tavg;
+        //    MinimumTemperature = tmin;
+        //    MaximumTemperature = tmax;
+        //    MaximumPrecipitation = prcp;
+        //    Snow = snow;
+        //    WindDirection = wdir;
+        //    WindSpeed = wspd;
+        //    WindPeakGust = wpgt;
+        //    Pressure = pres;
+        //    SunTime = tsun;
+
+        //}
+        //#endregion
 
         #region Methods
 
