@@ -12,18 +12,19 @@ namespace Web_I_O_Nitsche_Weismann
         #region Members (date,tavg,tmin,tmax,prcp,snow,wdir,wspd,wpgt,pres,tsun)
 
         string _appName;
-        myEnums _category;
         int _rating;
         int _reviews;
         double _size;
         decimal _installs;
-        myEnums _priceType;
         double _price;
-        myEnums _contentRating;
-        myEnums _genres;
         DateTime _lastUpdated;
         string _currentVersion;
         string _androidVersion;
+
+        myEnums.Category _category;
+        myEnums.PriceType _priceType;
+        myEnums.ContentRating _contentRating;
+        myEnums.Genres _genres;
 
         #endregion
 
@@ -197,6 +198,54 @@ namespace Web_I_O_Nitsche_Weismann
                 {
                     throw new Exception("Invalid Android-Version Name");
                 }
+            }
+        }
+
+        public myEnums.Category Category
+        {
+            get
+            {
+                return _category;
+            }
+            private set
+            {
+                _category = value;
+            }
+        }
+
+        public myEnums.PriceType PriceType
+        {
+            get
+            {
+                return _priceType;
+            }
+            private set
+            {
+                _priceType = value;
+            }
+        }
+
+        public myEnums.ContentRating ContentRating
+        {
+            get
+            {
+                return _contentRating;
+            }
+            private set
+            {
+                _contentRating = value;
+            }
+        }
+
+        public myEnums.Genres Genres
+        {
+            get
+            {
+                return _genres;
+            }
+            private set
+            {
+                _genres = value;
             }
         }
 
