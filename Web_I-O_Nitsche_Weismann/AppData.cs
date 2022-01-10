@@ -9,13 +9,13 @@ namespace Web_I_O_Nitsche_Weismann
 {
     class AppData
     {
-        #region Members (date,tavg,tmin,tmax,prcp,snow,wdir,wspd,wpgt,pres,tsun)
+        #region Members
 
         string _appName;
         int _rating;
         int _reviews;
         double _size;
-        decimal _installs;
+        long _installs;
         double _price;
         DateTime _lastUpdated;
         string _currentVersion;
@@ -36,7 +36,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _appName;
             }
-            private set
+            set
             {
                 if (value.Length > 2)
                 {
@@ -55,7 +55,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _rating;
             }
-            private set
+            set
             {
                 if (value < 0)
                 {
@@ -74,7 +74,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _reviews;
             }
-            private set
+            set
             {
                 if (value < 0)
                 {
@@ -93,7 +93,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _size;
             }
-            private set
+            set
             {
                 if (value < 0)
                 {
@@ -106,13 +106,13 @@ namespace Web_I_O_Nitsche_Weismann
             }
         }
 
-        public decimal Installs
+        public long Installs
         {
             get
             {
                 return _installs;
             }
-            private set
+            set
             {
                 if (value < 0)
                 {
@@ -131,7 +131,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _price;
             }
-            private set
+            set
             {
                 if (value < 0)
                 {
@@ -150,7 +150,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _lastUpdated;
             }
-            private set
+            set
             {
                 if (value > DateTime.Now)
                 {
@@ -169,7 +169,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _currentVersion;
             }
-            private set
+            set
             {
                 if (value.Length > 0)
                 {
@@ -188,7 +188,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _androidVersion;
             }
-            private set
+            set
             {
                 if (value.Length > 0)
                 {
@@ -207,7 +207,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _category;
             }
-            private set
+            set
             {
                 _category = value;
             }
@@ -219,7 +219,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _priceType;
             }
-            private set
+            set
             {
                 _priceType = value;
             }
@@ -231,7 +231,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _contentRating;
             }
-            private set
+            set
             {
                 _contentRating = value;
             }
@@ -243,7 +243,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 return _genres;
             }
-            private set
+            set
             {
                 _genres = value;
             }
@@ -254,6 +254,31 @@ namespace Web_I_O_Nitsche_Weismann
         #region Konstruktors
         public AppData()
         {
+
+        }
+
+        public AppData(string appName, int rating, int reviews, double size, long installs, double price, DateTime lastUpdated, string currentVersion, string androidVersion)
+        {
+            AppName = appName;
+            Rating = rating;
+            Reviews = reviews;
+            Size = size;
+            Installs = installs;
+            Price = price;
+            LastUpdated = lastUpdated;
+            CurrentVersion = currentVersion;
+            AndroidVersion = androidVersion;
+
+
+            //DateTime _lastUpdated;
+            //string _currentVersion;
+            //string _androidVersion;
+
+            //myEnums.Category _category;
+            //myEnums.PriceType _priceType;
+            //myEnums.ContentRating _contentRating;
+            //myEnums.Genres _genres;
+
 
         }
         #endregion
