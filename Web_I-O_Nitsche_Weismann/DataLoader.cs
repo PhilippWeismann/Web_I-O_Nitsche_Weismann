@@ -60,7 +60,7 @@ namespace Web_I_O_Nitsche_Weismann
             app.Category = (myEnums.Category)Enum.Parse(typeof(myEnums.Category), parts[1]);
             app.Rating = int.Parse(parts[2]);
             app.Reviews = int.Parse(parts[3]);
-            //app.Size = parts[4];        //Datentyp?
+            app.Size = parts[4];
             app.Installs = int.Parse(parts[5].TrimEnd('+'));
             app.PriceType = (myEnums.PriceType)Enum.Parse(typeof(myEnums.PriceType), parts[6]);
             app.ContentRating = (myEnums.ContentRating)Enum.Parse(typeof(myEnums.ContentRating), parts[7]);

@@ -14,7 +14,7 @@ namespace Web_I_O_Nitsche_Weismann
         string _appName;
         int _rating;
         int _reviews;
-        double _size;
+        string _size;
         long _installs;
         double _price;
         DateTime _lastUpdated;
@@ -87,7 +87,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
         }
 
-        public double Size
+        public string Size
         {
             get
             {
@@ -95,7 +95,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             set
             {
-                if (value < 0)
+                if (value.Length>0)
                 {
                     _size = value;
                 }
@@ -257,7 +257,7 @@ namespace Web_I_O_Nitsche_Weismann
 
         }
 
-        public AppData(string appName, int rating, int reviews, double size, long installs, double price, DateTime lastUpdated, string currentVersion, string androidVersion, myEnums.Category category, myEnums.PriceType priceType, myEnums.ContentRating contentRating, myEnums.Genres genres)
+        public AppData(string appName, int rating, int reviews, string size, long installs, double price, DateTime lastUpdated, string currentVersion, string androidVersion, myEnums.Category category, myEnums.PriceType priceType, myEnums.ContentRating contentRating, myEnums.Genres genres)
         {
             AppName = appName;
             Rating = rating;
@@ -273,6 +273,7 @@ namespace Web_I_O_Nitsche_Weismann
             ContentRating = contentRating;
             Genres = genres;
         }
+
         #endregion
 
 
@@ -286,7 +287,7 @@ namespace Web_I_O_Nitsche_Weismann
                 $"{ Category.ToString(), 30} " +
                 $"{ Rating.ToString(), 3} " +
                 $"{ Reviews.ToString(), 10} " +
-                $"{ Size.ToString() + "M",10} " +
+                $"{ Size, 10} " +
                 $"{ Installs.ToString() + "+",15} " +
                 $"{ PriceType.ToString(), 8} " +
                 $"{ ContentRating.ToString(), 20} " +
@@ -298,158 +299,6 @@ namespace Web_I_O_Nitsche_Weismann
             return s;
         }
 
-        ////Returns a List of all valid Weather Data from given File (filepath)
-        //public static List<AppData> ReadWeatherDataFromFile(char seperator, string filePath)
-        //{
-        //    List<AppData> myWeatherDataList = new List<AppData>();
-
-        //    StreamReader myStreamReader = new StreamReader(filePath);
-        //    string line;
-        //    int counter = 1;
-
-        //    while (myStreamReader.Peek() != -1)
-        //    {
-        //        line = myStreamReader.ReadLine();
-
-        //        if (counter > 1)
-        //        {
-        //            try
-        //            {
-        //                myWeatherDataList.Add(ConvertLineToWeatherData(line, seperator));
-        //            }
-        //            catch (Exception)
-        //            {
-        //                // throw auskommentiert , das Programm weiterlaufen soll um zu berechnen (Fail silent)
-        //                // throw würde Aktiv werden wenn eine Exception bei den Set-Properties auftritt (Wertebereich)
-        //                // oder beim var.Parse in ConvertLineToWeatherData
-
-        //                /*throw*/
-        //                new Exception("Line (Number: " + counter.ToString() + ") could not be convertet to valid Weather Data.");
-        //            }
-        //        }
-
-        //        counter++;
-        //    }
-        //    myStreamReader.Close();
-
-        //    return myWeatherDataList;
-        //}
-
-        ////converts a line from .csv File to an Object Weatherdata
-        //public static AppData ConvertLineToWeatherData(string line, char seperator)
-        //{
-        //    AppData weatherData = new AppData();
-
-        //    string[] parts = line.Split(seperator);
-
-        //    for (int i = 0; i < parts.Length; i++)
-        //    {
-        //        parts[i] = parts[i].Replace('.', ',');
-        //    }
-
-
-        //    weatherData.Date = DateTime.Parse(parts[0]);
-        //    weatherData.AverageTemperature = double.Parse(parts[1]);
-        //    weatherData.MinimumTemperature = double.Parse(parts[2]);
-        //    weatherData.MaximumTemperature = double.Parse(parts[3]);
-        //    weatherData.MaximumPrecipitation = double.Parse(parts[4]);
-        //    weatherData.Snow = double.Parse(parts[5]);
-        //    weatherData.WindDirection = double.Parse(parts[6]);
-        //    weatherData.WindSpeed = double.Parse(parts[7]);
-        //    weatherData.WindPeakGust = double.Parse(parts[8]);
-        //    weatherData.Pressure = double.Parse(parts[9]);
-        //    weatherData.SunTime = int.Parse(parts[10]);
-
-        //    return weatherData;
-        //}
-
-        //// Outputs a string of Year and Month in form of (yyyy/MM)
-        //public static string YearMonthString(AppData weatherData)
-        //{
-        //    return weatherData.Date.Year.ToString() + "-" + weatherData.Date.Month.ToString();
-        //}
-
-        ////Returns an Array usedMonths which contains the months where vaid Data is given
-        //public static string[] UsedMonthsInData(List<AppData> List)
-        //{
-        //    List<string> usedMonth = new List<string>() { YearMonthString(List[0]) };
-
-        //    //Generates List usedMonths which contains the months where vaid Data is given
-        //    foreach (AppData weatherData in List)
-        //    {
-        //        string yearMonth = YearMonthString(weatherData);
-        //        bool missing = false;
-
-        //        foreach (string item in usedMonth)
-        //        {
-        //            if (yearMonth != item)
-        //            {
-        //                missing = true;
-        //            }
-        //            else
-        //            {
-        //                missing = false;
-        //                break;
-        //            }
-        //        }
-        //        if (missing == true)
-        //        {
-        //            usedMonth.Add(yearMonth);
-        //        }
-        //    }
-
-        //    return usedMonth.ToArray();
-        //}
-
-        //// outputs an array with monthly average temperatures and suntimes; additonally infoArray[Name of Month , number of valid data sets in this month]
-        //public static double[,] CalculateMonthlyAverageTemperatureAndSunMinutes(List<AppData> List, out string[,] infoArray)
-        //{
-        //    string[] usedMonth = UsedMonthsInData(List);
-
-        //    // monthlymeans[AverageTemperature, AverageSunMinutes]
-        //    double[,] monthlyMeans = new double[usedMonth.Count(), 2];
-        //    int[] counters = new int[usedMonth.Count()];
-
-        //    //Calculates the Sum of Temperatures and SunTime and the Number of ValidData Sets in this Month
-        //    for (int i = 0; i < List.Count(); i++)
-        //    {
-        //        for (int j = 0; j < usedMonth.Count(); j++)
-        //        {
-        //            if (YearMonthString(List[i]) == usedMonth[j])
-        //            {
-        //                monthlyMeans[j, 0] += List[i].AverageTemperature;
-        //                monthlyMeans[j, 1] += List[i].SunTime;
-        //                counters[j]++;
-        //                break;
-        //            }
-        //        }
-        //    }
-
-        //    //Devides the Sums through the number of the given valid data sets
-        //    for (int i = 0; i < monthlyMeans.GetLength(0); i++)
-        //    {
-        //        monthlyMeans[i, 0] = monthlyMeans[i, 0] / counters[i];
-        //        monthlyMeans[i, 1] = monthlyMeans[i, 1] / counters[i];
-        //    }
-
-        //    //Rounds the double-Values
-        //    for (int i = 0; i < monthlyMeans.GetLength(0); i++)
-        //    {
-        //        monthlyMeans[i, 0] = Math.Round(monthlyMeans[i, 0], 3);
-        //        monthlyMeans[i, 1] = Math.Round(monthlyMeans[i, 1], 3);
-        //    }
-
-        //    //Fills InformationArray contains [string of Month, string of valid Datasets in this Month]
-        //    infoArray = new string[usedMonth.Length, 2];
-        //    for (int i = 0; i < usedMonth.Length; i++)
-        //    {
-        //        infoArray[i, 0] = usedMonth[i];
-        //        infoArray[i, 1] = counters[i].ToString();
-        //    }
-
-        //    return monthlyMeans;
-        //}
-
         #endregion
     }
-    }
+}
