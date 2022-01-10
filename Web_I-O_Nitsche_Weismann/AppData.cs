@@ -11,8 +11,8 @@ namespace Web_I_O_Nitsche_Weismann
     {
         #region Members (date,tavg,tmin,tmax,prcp,snow,wdir,wspd,wpgt,pres,tsun)
 
-        DateTime _date;
-        double _tavg;
+        string _appName;
+        double _category;
         double _tmin;
         double _tmax;
         double _prcp;
@@ -26,28 +26,28 @@ namespace Web_I_O_Nitsche_Weismann
         #endregion
 
         #region Properties (public get / private set) + Data Validation
-        public DateTime Date
+        public string Date
         {
             get
             {
-                return _date;
+                return _appName;
             }
             private set
             {
-                _date = value;
+                _appName = value;
             }
         }
         public double AverageTemperature
         {
             get
             {
-                return _tavg;
+                return _category;
             }
             private set
             {
                 if (value >= -273.15 && value <= 300)
                 {
-                    _tavg = value;
+                    _category = value;
                 }
                 else
                 {
@@ -228,7 +228,7 @@ namespace Web_I_O_Nitsche_Weismann
 
         }
 
-        public AppData(DateTime date, double tavg, double tmin, double tmax, double prcp, double snow, double wdir, double wspd, double wpgt, double pres, int tsun)
+        public AppData(string date, double tavg, double tmin, double tmax, double prcp, double snow, double wdir, double wspd, double wpgt, double pres, int tsun)
         {
             Date = date;
             AverageTemperature = tavg;
@@ -247,175 +247,175 @@ namespace Web_I_O_Nitsche_Weismann
 
         #region Methods
 
-        public string WeatherDataString()
-        {
+        //public string WeatherDataString()
+        //{
 
-            string s = string.Format($"" +
-                $"{Date.ToString("yyyy/MM/dd"),3} " +
-                $"{ AverageTemperature.ToString() + "°C",10} " +
-                $"{ MinimumTemperature.ToString() + "°C",10} " +
-                $"{ MinimumTemperature.ToString() + "°C",10} " +
-                $"{ MaximumPrecipitation.ToString() + "%",10} " +
-                $"{ Snow.ToString() + "cm",10} " +
-                $"{ WindDirection.ToString() + "°",10} " +
-                $"{ WindSpeed.ToString() + "km\\h",10} " +
-                $"{ Pressure.ToString() + "mPa",12} " +
-                $"{ SunTime.ToString() + "min",10}");
+        //    string s = string.Format($"" +
+        //        $"{Date.ToString("yyyy/MM/dd"),3} " +
+        //        $"{ AverageTemperature.ToString() + "°C",10} " +
+        //        $"{ MinimumTemperature.ToString() + "°C",10} " +
+        //        $"{ MinimumTemperature.ToString() + "°C",10} " +
+        //        $"{ MaximumPrecipitation.ToString() + "%",10} " +
+        //        $"{ Snow.ToString() + "cm",10} " +
+        //        $"{ WindDirection.ToString() + "°",10} " +
+        //        $"{ WindSpeed.ToString() + "km\\h",10} " +
+        //        $"{ Pressure.ToString() + "mPa",12} " +
+        //        $"{ SunTime.ToString() + "min",10}");
 
-            return s;
-        }
+        //    return s;
+        //}
 
-        //Returns a List of all valid Weather Data from given File (filepath)
-        public static List<AppData> ReadWeatherDataFromFile(char seperator, string filePath)
-        {
-            List<AppData> myWeatherDataList = new List<AppData>();
+        ////Returns a List of all valid Weather Data from given File (filepath)
+        //public static List<AppData> ReadWeatherDataFromFile(char seperator, string filePath)
+        //{
+        //    List<AppData> myWeatherDataList = new List<AppData>();
 
-            StreamReader myStreamReader = new StreamReader(filePath);
-            string line;
-            int counter = 1;
+        //    StreamReader myStreamReader = new StreamReader(filePath);
+        //    string line;
+        //    int counter = 1;
 
-            while (myStreamReader.Peek() != -1)
-            {
-                line = myStreamReader.ReadLine();
+        //    while (myStreamReader.Peek() != -1)
+        //    {
+        //        line = myStreamReader.ReadLine();
 
-                if (counter > 1)
-                {
-                    try
-                    {
-                        myWeatherDataList.Add(ConvertLineToWeatherData(line, seperator));
-                    }
-                    catch (Exception)
-                    {
-                        // throw auskommentiert , das Programm weiterlaufen soll um zu berechnen (Fail silent)
-                        // throw würde Aktiv werden wenn eine Exception bei den Set-Properties auftritt (Wertebereich)
-                        // oder beim var.Parse in ConvertLineToWeatherData
+        //        if (counter > 1)
+        //        {
+        //            try
+        //            {
+        //                myWeatherDataList.Add(ConvertLineToWeatherData(line, seperator));
+        //            }
+        //            catch (Exception)
+        //            {
+        //                // throw auskommentiert , das Programm weiterlaufen soll um zu berechnen (Fail silent)
+        //                // throw würde Aktiv werden wenn eine Exception bei den Set-Properties auftritt (Wertebereich)
+        //                // oder beim var.Parse in ConvertLineToWeatherData
 
-                        /*throw*/
-                        new Exception("Line (Number: " + counter.ToString() + ") could not be convertet to valid Weather Data.");
-                    }
-                }
+        //                /*throw*/
+        //                new Exception("Line (Number: " + counter.ToString() + ") could not be convertet to valid Weather Data.");
+        //            }
+        //        }
 
-                counter++;
-            }
-            myStreamReader.Close();
+        //        counter++;
+        //    }
+        //    myStreamReader.Close();
 
-            return myWeatherDataList;
-        }
+        //    return myWeatherDataList;
+        //}
 
-        //converts a line from .csv File to an Object Weatherdata
-        public static AppData ConvertLineToWeatherData(string line, char seperator)
-        {
-            AppData weatherData = new AppData();
+        ////converts a line from .csv File to an Object Weatherdata
+        //public static AppData ConvertLineToWeatherData(string line, char seperator)
+        //{
+        //    AppData weatherData = new AppData();
 
-            string[] parts = line.Split(seperator);
+        //    string[] parts = line.Split(seperator);
 
-            for (int i = 0; i < parts.Length; i++)
-            {
-                parts[i] = parts[i].Replace('.', ',');
-            }
+        //    for (int i = 0; i < parts.Length; i++)
+        //    {
+        //        parts[i] = parts[i].Replace('.', ',');
+        //    }
 
 
-            weatherData.Date = DateTime.Parse(parts[0]);
-            weatherData.AverageTemperature = double.Parse(parts[1]);
-            weatherData.MinimumTemperature = double.Parse(parts[2]);
-            weatherData.MaximumTemperature = double.Parse(parts[3]);
-            weatherData.MaximumPrecipitation = double.Parse(parts[4]);
-            weatherData.Snow = double.Parse(parts[5]);
-            weatherData.WindDirection = double.Parse(parts[6]);
-            weatherData.WindSpeed = double.Parse(parts[7]);
-            weatherData.WindPeakGust = double.Parse(parts[8]);
-            weatherData.Pressure = double.Parse(parts[9]);
-            weatherData.SunTime = int.Parse(parts[10]);
+        //    weatherData.Date = DateTime.Parse(parts[0]);
+        //    weatherData.AverageTemperature = double.Parse(parts[1]);
+        //    weatherData.MinimumTemperature = double.Parse(parts[2]);
+        //    weatherData.MaximumTemperature = double.Parse(parts[3]);
+        //    weatherData.MaximumPrecipitation = double.Parse(parts[4]);
+        //    weatherData.Snow = double.Parse(parts[5]);
+        //    weatherData.WindDirection = double.Parse(parts[6]);
+        //    weatherData.WindSpeed = double.Parse(parts[7]);
+        //    weatherData.WindPeakGust = double.Parse(parts[8]);
+        //    weatherData.Pressure = double.Parse(parts[9]);
+        //    weatherData.SunTime = int.Parse(parts[10]);
 
-            return weatherData;
-        }
+        //    return weatherData;
+        //}
 
-        // Outputs a string of Year and Month in form of (yyyy/MM)
-        public static string YearMonthString(AppData weatherData)
-        {
-            return weatherData.Date.Year.ToString() + "-" + weatherData.Date.Month.ToString();
-        }
+        //// Outputs a string of Year and Month in form of (yyyy/MM)
+        //public static string YearMonthString(AppData weatherData)
+        //{
+        //    return weatherData.Date.Year.ToString() + "-" + weatherData.Date.Month.ToString();
+        //}
 
-        //Returns an Array usedMonths which contains the months where vaid Data is given
-        public static string[] UsedMonthsInData(List<AppData> List)
-        {
-            List<string> usedMonth = new List<string>() { YearMonthString(List[0]) };
+        ////Returns an Array usedMonths which contains the months where vaid Data is given
+        //public static string[] UsedMonthsInData(List<AppData> List)
+        //{
+        //    List<string> usedMonth = new List<string>() { YearMonthString(List[0]) };
 
-            //Generates List usedMonths which contains the months where vaid Data is given
-            foreach (AppData weatherData in List)
-            {
-                string yearMonth = YearMonthString(weatherData);
-                bool missing = false;
+        //    //Generates List usedMonths which contains the months where vaid Data is given
+        //    foreach (AppData weatherData in List)
+        //    {
+        //        string yearMonth = YearMonthString(weatherData);
+        //        bool missing = false;
 
-                foreach (string item in usedMonth)
-                {
-                    if (yearMonth != item)
-                    {
-                        missing = true;
-                    }
-                    else
-                    {
-                        missing = false;
-                        break;
-                    }
-                }
-                if (missing == true)
-                {
-                    usedMonth.Add(yearMonth);
-                }
-            }
+        //        foreach (string item in usedMonth)
+        //        {
+        //            if (yearMonth != item)
+        //            {
+        //                missing = true;
+        //            }
+        //            else
+        //            {
+        //                missing = false;
+        //                break;
+        //            }
+        //        }
+        //        if (missing == true)
+        //        {
+        //            usedMonth.Add(yearMonth);
+        //        }
+        //    }
 
-            return usedMonth.ToArray();
-        }
+        //    return usedMonth.ToArray();
+        //}
 
-        // outputs an array with monthly average temperatures and suntimes; additonally infoArray[Name of Month , number of valid data sets in this month]
-        public static double[,] CalculateMonthlyAverageTemperatureAndSunMinutes(List<AppData> List, out string[,] infoArray)
-        {
-            string[] usedMonth = UsedMonthsInData(List);
+        //// outputs an array with monthly average temperatures and suntimes; additonally infoArray[Name of Month , number of valid data sets in this month]
+        //public static double[,] CalculateMonthlyAverageTemperatureAndSunMinutes(List<AppData> List, out string[,] infoArray)
+        //{
+        //    string[] usedMonth = UsedMonthsInData(List);
 
-            // monthlymeans[AverageTemperature, AverageSunMinutes]
-            double[,] monthlyMeans = new double[usedMonth.Count(), 2];
-            int[] counters = new int[usedMonth.Count()];
+        //    // monthlymeans[AverageTemperature, AverageSunMinutes]
+        //    double[,] monthlyMeans = new double[usedMonth.Count(), 2];
+        //    int[] counters = new int[usedMonth.Count()];
 
-            //Calculates the Sum of Temperatures and SunTime and the Number of ValidData Sets in this Month
-            for (int i = 0; i < List.Count(); i++)
-            {
-                for (int j = 0; j < usedMonth.Count(); j++)
-                {
-                    if (YearMonthString(List[i]) == usedMonth[j])
-                    {
-                        monthlyMeans[j, 0] += List[i].AverageTemperature;
-                        monthlyMeans[j, 1] += List[i].SunTime;
-                        counters[j]++;
-                        break;
-                    }
-                }
-            }
+        //    //Calculates the Sum of Temperatures and SunTime and the Number of ValidData Sets in this Month
+        //    for (int i = 0; i < List.Count(); i++)
+        //    {
+        //        for (int j = 0; j < usedMonth.Count(); j++)
+        //        {
+        //            if (YearMonthString(List[i]) == usedMonth[j])
+        //            {
+        //                monthlyMeans[j, 0] += List[i].AverageTemperature;
+        //                monthlyMeans[j, 1] += List[i].SunTime;
+        //                counters[j]++;
+        //                break;
+        //            }
+        //        }
+        //    }
 
-            //Devides the Sums through the number of the given valid data sets
-            for (int i = 0; i < monthlyMeans.GetLength(0); i++)
-            {
-                monthlyMeans[i, 0] = monthlyMeans[i, 0] / counters[i];
-                monthlyMeans[i, 1] = monthlyMeans[i, 1] / counters[i];
-            }
+        //    //Devides the Sums through the number of the given valid data sets
+        //    for (int i = 0; i < monthlyMeans.GetLength(0); i++)
+        //    {
+        //        monthlyMeans[i, 0] = monthlyMeans[i, 0] / counters[i];
+        //        monthlyMeans[i, 1] = monthlyMeans[i, 1] / counters[i];
+        //    }
 
-            //Rounds the double-Values
-            for (int i = 0; i < monthlyMeans.GetLength(0); i++)
-            {
-                monthlyMeans[i, 0] = Math.Round(monthlyMeans[i, 0], 3);
-                monthlyMeans[i, 1] = Math.Round(monthlyMeans[i, 1], 3);
-            }
+        //    //Rounds the double-Values
+        //    for (int i = 0; i < monthlyMeans.GetLength(0); i++)
+        //    {
+        //        monthlyMeans[i, 0] = Math.Round(monthlyMeans[i, 0], 3);
+        //        monthlyMeans[i, 1] = Math.Round(monthlyMeans[i, 1], 3);
+        //    }
 
-            //Fills InformationArray contains [string of Month, string of valid Datasets in this Month]
-            infoArray = new string[usedMonth.Length, 2];
-            for (int i = 0; i < usedMonth.Length; i++)
-            {
-                infoArray[i, 0] = usedMonth[i];
-                infoArray[i, 1] = counters[i].ToString();
-            }
+        //    //Fills InformationArray contains [string of Month, string of valid Datasets in this Month]
+        //    infoArray = new string[usedMonth.Length, 2];
+        //    for (int i = 0; i < usedMonth.Length; i++)
+        //    {
+        //        infoArray[i, 0] = usedMonth[i];
+        //        infoArray[i, 1] = counters[i].ToString();
+        //    }
 
-            return monthlyMeans;
-        }
+        //    return monthlyMeans;
+        //}
 
         #endregion
     }
