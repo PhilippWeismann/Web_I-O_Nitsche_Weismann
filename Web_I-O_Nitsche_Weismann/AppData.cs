@@ -257,7 +257,7 @@ namespace Web_I_O_Nitsche_Weismann
 
         }
 
-        public AppData(string appName, int rating, int reviews, double size, long installs, double price, DateTime lastUpdated, string currentVersion, string androidVersion)
+        public AppData(string appName, int rating, int reviews, double size, long installs, double price, DateTime lastUpdated, string currentVersion, string androidVersion, myEnums.Category category, myEnums.PriceType priceType, myEnums.ContentRating contentRating, myEnums.Genres genres)
         {
             AppName = appName;
             Rating = rating;
@@ -268,57 +268,35 @@ namespace Web_I_O_Nitsche_Weismann
             LastUpdated = lastUpdated;
             CurrentVersion = currentVersion;
             AndroidVersion = androidVersion;
-
-
-            //DateTime _lastUpdated;
-            //string _currentVersion;
-            //string _androidVersion;
-
-            //myEnums.Category _category;
-            //myEnums.PriceType _priceType;
-            //myEnums.ContentRating _contentRating;
-            //myEnums.Genres _genres;
-
-
+            Category = category;
+            PriceType = priceType;
+            ContentRating = contentRating;
+            Genres = genres;
         }
         #endregion
 
-        //public AppData(string date, double tavg, double tmin, double tmax, double prcp, double snow, double wdir, double wspd, double wpgt, double pres, int tsun)
-        //{
-        //    Date = date;
-        //    AverageTemperature = tavg;
-        //    MinimumTemperature = tmin;
-        //    MaximumTemperature = tmax;
-        //    MaximumPrecipitation = prcp;
-        //    Snow = snow;
-        //    WindDirection = wdir;
-        //    WindSpeed = wspd;
-        //    WindPeakGust = wpgt;
-        //    Pressure = pres;
-        //    SunTime = tsun;
-
-        //}
-        //#endregion
 
         #region Methods
 
-        //public string WeatherDataString()
-        //{
+        public string AppDataString()
+        {
 
-        //    string s = string.Format($"" +
-        //        $"{Date.ToString("yyyy/MM/dd"),3} " +
-        //        $"{ AverageTemperature.ToString() + "°C",10} " +
-        //        $"{ MinimumTemperature.ToString() + "°C",10} " +
-        //        $"{ MinimumTemperature.ToString() + "°C",10} " +
-        //        $"{ MaximumPrecipitation.ToString() + "%",10} " +
-        //        $"{ Snow.ToString() + "cm",10} " +
-        //        $"{ WindDirection.ToString() + "°",10} " +
-        //        $"{ WindSpeed.ToString() + "km\\h",10} " +
-        //        $"{ Pressure.ToString() + "mPa",12} " +
-        //        $"{ SunTime.ToString() + "min",10}");
+            string s = string.Format($"" +
+                $"{ AppName, 30} " +
+                $"{ Category.ToString(), 30} " +
+                $"{ Rating.ToString(), 3} " +
+                $"{ Reviews.ToString(), 10} " +
+                $"{ Size.ToString() + "M",10} " +
+                $"{ Installs.ToString() + "+",15} " +
+                $"{ PriceType.ToString(), 8} " +
+                $"{ ContentRating.ToString(), 20} " +
+                $"{ Genres.ToString(), 20} " +
+                $"{ LastUpdated.ToString(), 12} " +
+                $"{ CurrentVersion.ToString(), 10} " +
+                $"{ AndroidVersion.ToString(), 10}");
 
-        //    return s;
-        //}
+            return s;
+        }
 
         ////Returns a List of all valid Weather Data from given File (filepath)
         //public static List<AppData> ReadWeatherDataFromFile(char seperator, string filePath)
@@ -474,4 +452,4 @@ namespace Web_I_O_Nitsche_Weismann
 
         #endregion
     }
-}
+    }
