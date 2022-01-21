@@ -14,7 +14,13 @@ namespace Web_I_O_Nitsche_Weismann
             string filePathPhotpgraphy = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/PhotographyApps.CSV";
             string filePathWeather = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/WeatherApps.CSV";
 
-            LoadDataFromLinks(filePathHealthFitness, filePathPhotpgraphy, filePathWeather);
+            List<AppData> apps = LoadDataFromLinks(filePathHealthFitness, filePathPhotpgraphy, filePathWeather);
+
+            foreach (AppData app in apps)
+            {
+                Console.WriteLine(app.AppDataString());
+            }
+            Console.ReadKey();
         }
 
         static List<AppData> LoadDataFromLinks(string filePath1, string filePath2, string filePath3)
