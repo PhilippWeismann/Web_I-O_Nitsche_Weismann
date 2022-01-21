@@ -107,8 +107,13 @@ namespace Web_I_O_Nitsche_Weismann
             ErrorLines.Add(-1);
         }
 
-        public static void FilterApps(myEnums.Filter filter, myEnums.Operator compareOperator ,double filterValue)
+        public static void FilterApps(List<AppData> appsToBeFiltered, myEnums.Filter filter, myEnums.Operator compareOperator ,double filterValue)
         {
+            List<AppData> filteredBeforeApps = new List<AppData>();
+
+            filteredBeforeApps.AddRange(appsToBeFiltered);
+
+            appsToBeFiltered = new List<AppData>();
 
             switch (filter)
             {
@@ -116,21 +121,21 @@ namespace Web_I_O_Nitsche_Weismann
                     switch (compareOperator)
                     {
                         case myEnums.Operator.greater_or_equals:
-                            foreach (AppData app in AllApps)
+                            foreach (AppData app in filteredBeforeApps)
                             {
                                 if (app.Price >= filterValue)
                                 {
-                                    FilteredApps.Add(app);
+                                    appsToBeFiltered.Add(app);
                                 }
                             }
                             break;
 
                         case myEnums.Operator.less_or_equals:
-                            foreach (AppData app in AllApps)
+                            foreach (AppData app in filteredBeforeApps)
                             {
                                 if (app.Price <= filterValue)
                                 {
-                                    FilteredApps.Add(app);
+                                    appsToBeFiltered.Add(app);
                                 }
                             }
                             break;
@@ -144,21 +149,21 @@ namespace Web_I_O_Nitsche_Weismann
                     switch (compareOperator)
                     {
                         case myEnums.Operator.greater_or_equals:
-                            foreach (AppData app in AllApps)
+                            foreach (AppData app in filteredBeforeApps)
                             {
                                 if (app.Reviews >= filterValue)
                                 {
-                                    FilteredApps.Add(app);
+                                    appsToBeFiltered.Add(app);
                                 }
                             }
                             break;
 
                         case myEnums.Operator.less_or_equals:
-                            foreach (AppData app in AllApps)
+                            foreach (AppData app in filteredBeforeApps)
                             {
                                 if (app.Reviews <= filterValue)
                                 {
-                                    FilteredApps.Add(app);
+                                    appsToBeFiltered.Add(app);
                                 }
                             }
                             break;
@@ -173,7 +178,7 @@ namespace Web_I_O_Nitsche_Weismann
                     switch (compareOperator)
                     {
                         case myEnums.Operator.greater_or_equals:
-                            foreach (AppData app in AllApps)
+                            foreach (AppData app in filteredBeforeApps)
                             {
 
                                 if (app.Size.EndsWith("M"))
@@ -195,13 +200,13 @@ namespace Web_I_O_Nitsche_Weismann
                                 //string number = app.Size.
                                 if (size >= filterValue)
                                 {
-                                    FilteredApps.Add(app);
+                                    appsToBeFiltered.Add(app);
                                 }
                             }
                             break;
 
                         case myEnums.Operator.less_or_equals:
-                            foreach (AppData app in AllApps)
+                            foreach (AppData app in filteredBeforeApps)
                             {
 
                                 if (app.Size.EndsWith("M"))
@@ -223,7 +228,7 @@ namespace Web_I_O_Nitsche_Weismann
                                 //string number = app.Size.
                                 if (size <= filterValue)
                                 {
-                                    FilteredApps.Add(app);
+                                    appsToBeFiltered.Add(app);
                                 }
                             }
                             break;
@@ -236,6 +241,12 @@ namespace Web_I_O_Nitsche_Weismann
                 default:
                     break;
             }
+
+            FilteredApps = new List<AppData>();
+
+            FilteredApps.AddRange(appsToBeFiltered);
+
+            
 
         }
 
