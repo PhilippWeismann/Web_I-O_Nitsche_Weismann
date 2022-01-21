@@ -31,14 +31,20 @@ namespace Web_I_O_Nitsche_Weismann
             DisplayAppsFromListToConsole(DataLoader.FilteredApps);
             int j = DataLoader.FilteredApps.Count();
 
-            Mainmenu();
+
             DataLoader.FilterApps(DataLoader.FilteredApps, myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 5);
             DisplayAppsFromListToConsole(DataLoader.FilteredApps);
             int k = DataLoader.FilteredApps.Count();
 
+            Console.WriteLine("Durchgang1: " + i + "   Durchgang2: " + j + "   Durchgang3: " + k);
+
+            Console.ReadLine();
+
             //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
 
             //DisplayAppsFromListToConsole(DataLoader.AllApps);
+
+            Mainmenu();
 
         }
 
