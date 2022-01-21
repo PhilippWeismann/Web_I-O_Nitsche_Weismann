@@ -11,14 +11,18 @@ namespace Web_I_O_Nitsche_Weismann
         static void Main(string[] args)
         {
             List<int> errorLines = new List<int>();
+            List<AppData> apps = new List<AppData>();
 
             string filePathHealthFitness = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/HealthFitnessApps.CSV";
             string filePathPhotpgraphy = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/PhotographyApps.CSV";
             string filePathWeather = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/WeatherApps.CSV";
 
-            List<AppData> apps = LoadDataFromLinks(filePathHealthFitness, filePathPhotpgraphy, filePathWeather, errorLines);
 
-            DisplayAllValidAppsToConsole(apps);
+            DataLoader.AddDataFromURL(apps, filePathHealthFitness, errorLines);
+            DataLoader.AddDataFromURL(apps, filePathPhotpgraphy, errorLines);
+            DataLoader.AddDataFromURL(apps, filePathWeather, errorLines);
+
+            DisplayAppsFromListToConsole(apps);
 
             DisplayErrorLines(errorLines);
 
@@ -26,26 +30,7 @@ namespace Web_I_O_Nitsche_Weismann
             Console.ReadKey();
         }
 
-        static List<AppData> LoadDataFromLinks(string filePath1, string filePath2, string filePath3, List<int> errorLines)
-        {
-            List<AppData> apps = new List<AppData>();
-
-            AddDataFromURL(apps, filePath1, errorLines);
-            AddDataFromURL(apps, filePath2, errorLines);
-            AddDataFromURL(apps, filePath3, errorLines);
-
-            return apps;
-        }
-
-        public static void AddDataFromURL(List<AppData> apps, string filePath, List<int> errorLines)
-        {
-            List<int> errorBuffer = new List<int>();
-            apps.AddRange(DataLoader.ReadAppsFromFile(';', filePath, errorBuffer));
-            errorLines.AddRange(errorBuffer);
-            errorLines.Add(-1);
-        }
-
-        public static void DisplayAllValidAppsToConsole(List<AppData> apps)
+        public static void DisplayAppsFromListToConsole(List<AppData> apps)
         {
             foreach (AppData app in apps)
             {

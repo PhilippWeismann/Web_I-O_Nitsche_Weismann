@@ -8,23 +8,33 @@ using System.Threading.Tasks;
 
 namespace Web_I_O_Nitsche_Weismann
 {
-    class DataLoader
+    static class DataLoader
     {
-        #region readfromtxt
-        public static List<AppData> ReadAppsFromFile(char seperator, string filePath, List<int> errorBuffer)
+        #region Members
+
+        static List<AppData> _myApps = new List<AppData>();
+
+        #endregion
+
+        #region Properties
+
+        public static List<AppData> MyApps
         {
-            List<AppData> myApps = new List<AppData>();
+            get
+            {
+                return _myApps;
+            }
+            set
+            {
+                _myApps = value;
+            }
+        }
 
+        #endregion
 
-            //string bufferFilePath = @"\..\..\buffer.txt";
-
-            //if (File.Exists(bufferFilePath))
-            //{ // Create a file to write to
-            //    File.Delete(bufferFilePath);
-            //}
-            //File.Create(bufferFilePath);
-
-
+        #region Methods
+        public static List<AppData> ReadAppsFromURL(char seperator, string filePath, List<int> errorBuffer)
+        {
             WebClient myWebclient = new WebClient();
 
             Stream myStream = myWebclient.OpenRead(filePath);
@@ -44,13 +54,13 @@ namespace Web_I_O_Nitsche_Weismann
                 {
                     try
                     {
-                        myApps.Add(ConvertLineToApp(line, seperator));
+                        MyApps.Add(ConvertLineToApp(line, seperator));
                     }
                     catch (Exception)
                     {
                         // throw auskommentiert , das Programm weiterlaufen soll um zu berechnen (Fail silent)
                         // throw würde Aktiv werden wenn eine Exception bei den Set-Properties auftritt (Wertebereich)
-                        // oder beim var.Parse in ConvertLineToProduct
+                        // oder beim var.Parse in ConvertLineToApp
 
                         /*throw*/
                         new Exception("Line (Number: " + counter.ToString() + ") could not be convertet to valid App.");
@@ -63,7 +73,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             myStreamReader.Close();
 
-            return myApps;
+            return MyApps;
         }
         public static AppData ConvertLineToApp(string line, char seperator)
         {
@@ -123,9 +133,22 @@ namespace Web_I_O_Nitsche_Weismann
 
             return app;
         }
-        #endregion
+        public static List<AppData> LoadDataFromLink(string filePath, List<int> errorLines)
+        {
+            List<AppData> apps = new List<AppData>();
 
-        #region Methods
+            AddDataFromURL(apps, filePath, errorLines);
+
+
+            return apps;
+        }
+        public static void AddDataFromURL(List<AppData> apps, string filePath, List<int> errorLines)
+        {
+            List<int> errorBuffer = new List<int>();
+            apps.AddRange(DataLoader.ReadAppsFromURL(';', filePath, errorBuffer));
+            errorLines.AddRange(errorBuffer);
+            errorLines.Add(-1);
+        }
         private static myEnums.Category CategoryAsEnum(string categoryAsString, out bool isEnum)
         {
             switch (categoryAsString)
