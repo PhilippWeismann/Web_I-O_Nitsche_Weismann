@@ -20,28 +20,57 @@ namespace Web_I_O_Nitsche_Weismann
             DataLoader.ReadAppsFromURL(';', filePathPhotpgraphy);
             DataLoader.ReadAppsFromURL(';', filePathWeather);
 
+            
+
             DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2);
 
-            DisplayAppsFromListToConsole(DataLoader.FilteredApps);
+            Mainmenu();
+
+            //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
 
             //DisplayAppsFromListToConsole(DataLoader.AllApps);
 
-            DisplayErrorLines(DataLoader.ErrorLines);
-
-            Console.ReadKey();
         }
+
+        #region Mainmenu
+        public static void Mainmenu()
+        {
+            // Main Menu
+            bool exit = false;
+            ConsoleMenu Mainmenu = new ConsoleMenu(new Option[]{
+                new Option("Show all Apps", () => DisplayAppsFromListToConsole(DataLoader.AllApps)),
+                new Option("Filter Apps", () => DisplayAppsFromListToConsole(DataLoader.FilteredApps)),
+                new Option("Show lines where conversion didn't work", () => DisplayErrorLines(DataLoader.ErrorLines)),
+                new Option("Exit", () => exit = true)
+            });
+
+            //Main Loop
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Navigate with Arrow Up - Arrow Down - Keys\n");
+                Mainmenu.MenuLoopInConsole();
+            } while (!exit);
+        }
+        #endregion
 
         public static void DisplayAppsFromListToConsole(List<AppData> apps)
         {
+            Console.Clear();
+
             foreach (AppData app in apps)
             {
                 Console.WriteLine(app.AppDataString());
             }
+
+            Console.WriteLine("\n\nPress any key to go back...");
+            Console.ReadLine();
         }
 
         public static void DisplayErrorLines(List<int> errors)
         {
-            Console.WriteLine("\n\nErrors occured during reading AppData from Files:\n");
+            Console.Clear();
+            Console.WriteLine("Errors occured during reading AppData from Files:\n");
 
             int filecount = 1;
             int counter = 0;
@@ -72,7 +101,9 @@ namespace Web_I_O_Nitsche_Weismann
                     Console.Write(errorLine + " ");
                 }
             }
-            Console.WriteLine();
+
+            Console.WriteLine("\n\nPress any key to go back...");
+            Console.ReadLine();
         }
     }
 }
