@@ -10,48 +10,39 @@ namespace Web_I_O_Nitsche_Weismann
     {
         static void Main(string[] args)
         {
-            List<int> readingErrors = new List<int>();
+            List<int> errorLines = new List<int>();
 
             string filePathHealthFitness = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/HealthFitnessApps.CSV";
             string filePathPhotpgraphy = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/PhotographyApps.CSV";
             string filePathWeather = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/WeatherApps.CSV";
 
-            List<AppData> apps = LoadDataFromLinks(filePathHealthFitness, filePathPhotpgraphy, filePathWeather, out readingErrors);
+            List<AppData> apps = LoadDataFromLinks(filePathHealthFitness, filePathPhotpgraphy, filePathWeather, errorLines);
 
             DisplayAllValidAppsToConsole(apps);
 
-            DisplayErrorLines(readingErrors);
+            DisplayErrorLines(errorLines);
 
 
             Console.ReadKey();
         }
 
-        static List<AppData> LoadDataFromLinks(string filePath1, string filePath2, string filePath3, out List<int> errorLines)
+        static List<AppData> LoadDataFromLinks(string filePath1, string filePath2, string filePath3, List<int> errorLines)
         {
             List<AppData> apps = new List<AppData>();
 
-            List<int> errorList = new List<int>();
-            List<int> errorBuffer = new List<int>();
-
-
-
-
-            apps.AddRange(DataLoader.ReadAppsFromFile(';', filePath1, out errorBuffer));
-            errorList.AddRange(errorBuffer);
-            errorList.Add(-1);
-
-
-            apps.AddRange(DataLoader.ReadAppsFromFile(';', filePath2, out errorBuffer));
-            errorList.AddRange(errorBuffer);
-            errorList.Add(-1);
-
-            apps.AddRange(DataLoader.ReadAppsFromFile(';', filePath3, out errorBuffer));
-            errorList.AddRange(errorBuffer);
-            errorList.Add(-1);
-
-            errorLines = errorList;
+            AddDataFromURL(apps, filePath1, errorLines);
+            AddDataFromURL(apps, filePath2, errorLines);
+            AddDataFromURL(apps, filePath3, errorLines);
 
             return apps;
+        }
+
+        public static void AddDataFromURL(List<AppData> apps, string filePath, List<int> errorLines)
+        {
+            List<int> errorBuffer = new List<int>();
+            apps.AddRange(DataLoader.ReadAppsFromFile(';', filePath, errorBuffer));
+            errorLines.AddRange(errorBuffer);
+            errorLines.Add(-1);
         }
 
         public static void DisplayAllValidAppsToConsole(List<AppData> apps)
@@ -74,16 +65,20 @@ namespace Web_I_O_Nitsche_Weismann
             foreach (int errorLine in errors)
             {
                 loopcount++;
-                if (errorLine == -1 && loopcount!=errors.Count)
+                if (errorLine == -1)
                 {
                     if (counter==0)
                     {
                         Console.Write("No Errors");
                     }
                     filecount++;
-                    Console.Write("\n");
-                    Console.Write("File " + filecount + " Error Lines: ");
                     counter = 0;
+
+                    if (loopcount!=errors.Count)
+                    {
+                        Console.Write("\n");
+                        Console.Write("File " + filecount + " Error Lines: ");
+                    }
                 }
                 else
                 {
