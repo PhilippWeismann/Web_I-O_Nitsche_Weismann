@@ -12,29 +12,59 @@ namespace Web_I_O_Nitsche_Weismann
     {
         #region Members
 
-        static List<AppData> _myApps = new List<AppData>();
+        static List<AppData> _allApps = new List<AppData>();
+
+        static List<AppData> _filteredApps = new List<AppData>();
+
+        static List<int> _errorLines = new List<int>();
 
         #endregion
 
         #region Properties
 
-        public static List<AppData> MyApps
+        public static List<AppData> AllApps
         {
             get
             {
-                return _myApps;
+                return _allApps;
             }
             set
             {
-                _myApps = value;
+                _allApps = value;
+            }
+        }
+
+        public static List<AppData> FilteredApps
+        {
+            get
+            {
+                return _filteredApps;
+            }
+            set
+            {
+                _filteredApps = value;
+            }
+        }
+
+        public static List<int> ErrorLines
+        {
+            get
+            {
+                return _errorLines;
+            }
+            set
+            {
+                _errorLines = value;
             }
         }
 
         #endregion
 
         #region Methods
-        public static List<AppData> ReadAppsFromURL(char seperator, string filePath, List<int> errorBuffer)
+        public static void ReadAppsFromURL(char seperator, string filePath)
         {
+            
+
             WebClient myWebclient = new WebClient();
 
             Stream myStream = myWebclient.OpenRead(filePath);
@@ -54,7 +84,7 @@ namespace Web_I_O_Nitsche_Weismann
                 {
                     try
                     {
-                        MyApps.Add(ConvertLineToApp(line, seperator));
+                        AllApps.Add(ConvertLineToApp(line, seperator));
                     }
                     catch (Exception)
                     {
@@ -65,7 +95,7 @@ namespace Web_I_O_Nitsche_Weismann
                         /*throw*/
                         new Exception("Line (Number: " + counter.ToString() + ") could not be convertet to valid App.");
 
-                        errorBuffer.Add(counter);
+                        ErrorLines.Add(counter);
                     }
                 }
 
@@ -73,7 +103,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             myStreamReader.Close();
 
-            return MyApps;
+            ErrorLines.Add(-1);
         }
         public static AppData ConvertLineToApp(string line, char seperator)
         {
@@ -132,22 +162,6 @@ namespace Web_I_O_Nitsche_Weismann
             app.AndroidVersion = parts[12];
 
             return app;
-        }
-        public static List<AppData> LoadDataFromLink(string filePath, List<int> errorLines)
-        {
-            List<AppData> apps = new List<AppData>();
-
-            AddDataFromURL(apps, filePath, errorLines);
-
-
-            return apps;
-        }
-        public static void AddDataFromURL(List<AppData> apps, string filePath, List<int> errorLines)
-        {
-            List<int> errorBuffer = new List<int>();
-            apps.AddRange(DataLoader.ReadAppsFromURL(';', filePath, errorBuffer));
-            errorLines.AddRange(errorBuffer);
-            errorLines.Add(-1);
         }
         private static myEnums.Category CategoryAsEnum(string categoryAsString, out bool isEnum)
         {

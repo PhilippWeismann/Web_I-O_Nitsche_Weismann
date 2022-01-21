@@ -10,22 +10,17 @@ namespace Web_I_O_Nitsche_Weismann
     {
         static void Main(string[] args)
         {
-            List<int> errorLines = new List<int>();
-            List<AppData> apps = new List<AppData>();
-
             string filePathHealthFitness = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/HealthFitnessApps.CSV";
             string filePathPhotpgraphy = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/PhotographyApps.CSV";
             string filePathWeather = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/WeatherApps.CSV";
 
+            DataLoader.ReadAppsFromURL(';', filePathHealthFitness);
+            DataLoader.ReadAppsFromURL(';', filePathPhotpgraphy);
+            DataLoader.ReadAppsFromURL(';', filePathWeather);
 
-            DataLoader.AddDataFromURL(apps, filePathHealthFitness, errorLines);
-            DataLoader.AddDataFromURL(apps, filePathPhotpgraphy, errorLines);
-            DataLoader.AddDataFromURL(apps, filePathWeather, errorLines);
+            DisplayAppsFromListToConsole(DataLoader.AllApps);
 
-            DisplayAppsFromListToConsole(apps);
-
-            DisplayErrorLines(errorLines);
-
+            DisplayErrorLines(DataLoader.ErrorLines);
 
             Console.ReadKey();
         }
@@ -40,12 +35,12 @@ namespace Web_I_O_Nitsche_Weismann
 
         public static void DisplayErrorLines(List<int> errors)
         {
-            Console.WriteLine("Error in Lines:\n");
+            Console.WriteLine("\n\nErrors occured during reading AppData from Files:\n");
 
             int filecount = 1;
             int counter = 0;
             int loopcount = 0;
-            Console.Write("File 1 Error Lines: ");
+            Console.Write("File 1 Error in Line: ");
 
             foreach (int errorLine in errors)
             {
@@ -62,7 +57,7 @@ namespace Web_I_O_Nitsche_Weismann
                     if (loopcount!=errors.Count)
                     {
                         Console.Write("\n");
-                        Console.Write("File " + filecount + " Error Lines: ");
+                        Console.Write("File " + filecount + " Error in Line: ");
                     }
                 }
                 else
