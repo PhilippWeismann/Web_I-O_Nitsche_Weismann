@@ -9,6 +9,8 @@ namespace Web_I_O_Nitsche_Weismann
 {
     class Program
     {
+        static int countOfFiltering = 0;
+
         static void Main(string[] args)
         {
             
@@ -22,23 +24,23 @@ namespace Web_I_O_Nitsche_Weismann
 
             //DisplayAppsFromListToConsole(DataLoader.AllApps);
 
-            DataLoader.FilterApps(DataLoader.AllApps,myEnums.Filter.Size, myEnums.Operator.less_or_equals, 30);
-            DisplayAppsFromListToConsole(DataLoader.FilteredApps);
-            int i = DataLoader.FilteredApps.Count();
+            //DataLoader.FilterApps(DataLoader.AllApps,myEnums.Filter.Size, myEnums.Operator.less_or_equals, 30);
+            //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
+            //int i = DataLoader.FilteredApps.Count();
 
 
-            DataLoader.FilterApps(DataLoader.FilteredApps, myEnums.Filter.Size, myEnums.Operator.less_or_equals, 10);
-            DisplayAppsFromListToConsole(DataLoader.FilteredApps);
-            int j = DataLoader.FilteredApps.Count();
+            //DataLoader.FilterApps(DataLoader.FilteredApps, myEnums.Filter.Size, myEnums.Operator.less_or_equals, 10);
+            //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
+            //int j = DataLoader.FilteredApps.Count();
 
 
-            DataLoader.FilterApps(DataLoader.FilteredApps, myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 5);
-            DisplayAppsFromListToConsole(DataLoader.FilteredApps);
-            int k = DataLoader.FilteredApps.Count();
+            //DataLoader.FilterApps(DataLoader.FilteredApps, myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 5);
+            //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
+            //int k = DataLoader.FilteredApps.Count();
 
-            Console.WriteLine("Durchgang1: " + i + "   Durchgang2: " + j + "   Durchgang3: " + k);
+            //Console.WriteLine("Durchgang1: " + i + "   Durchgang2: " + j + "   Durchgang3: " + k);
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
             //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
 
@@ -55,7 +57,8 @@ namespace Web_I_O_Nitsche_Weismann
             bool exit = false;
             ConsoleMenu Mainmenu = new ConsoleMenu(new Option[]{
                 new Option("Show all Apps", () => DisplayAppsFromListToConsole(DataLoader.AllApps)),
-                new Option("Filter Apps", () => SubmenuFilterApps()),
+                new Option("Filter Apps (more often possible, old filters are retained)", () => SubmenuFilterApps()),
+                new Option("Rest filters", () => countOfFiltering=0),
                 new Option("Show lines where conversion didn't work", () => DisplayErrorLines(DataLoader.ErrorLines)),
                 new Option("Exit", () => exit = true)
             });
@@ -74,62 +77,58 @@ namespace Web_I_O_Nitsche_Weismann
             Console.WriteLine("What will you filter\n");
 
             ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
-                new Option("Price", () => SubmenuFilterIsPrice()),
-                new Option("Reviews", () => SubmenuFilterIsReviews()),
-                new Option("Size", () => SubmenuFilterIsSize()),
+                new Option("Price", () => SubmenuOperator(myEnums.Filter.Price)),
+                new Option("Reviews", () => SubmenuOperator(myEnums.Filter.Reviews)),
+                new Option("Size", () => SubmenuOperator(myEnums.Filter.Size)),
                 new Option("Return To Main Menu", () => Mainmenu())
             });
             ChangeUserMenu.MenuLoopInConsole();
 
         }
-        public static void SubmenuFilterIsPrice()
+        public static void SubmenuOperator(myEnums.Filter filter)
         {
-            //Console.Clear();
-            //Console.WriteLine("What will you filter\n");
+            Console.Clear();
+            Console.WriteLine("Will you filter lesser or greater Apps\n");
 
-            ////DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)
+            //DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)
 
-            //ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
-            //    new Option("Price", () => DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)),
-            //    new Option("Reviews", () => DataLoader.FilterApps(myEnums.Filter.Reviews, myEnums.Operator.greater_or_equals, 2)),
-            //    new Option("Size", () => DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2)),
-            //    new Option("Return To Main Menu", () => Mainmenu())
-            //});
-            //ChangeUserMenu.MenuLoopInConsole();
-
+            ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
+                new Option(">=", () => SubmenuFilterValue(filter,myEnums.Operator.greater_or_equals)),
+                new Option("<=", () => SubmenuFilterValue(filter,myEnums.Operator.less_or_equals)),
+                new Option("Return To Main Menu", () => Mainmenu())
+            });
+            ChangeUserMenu.MenuLoopInConsole();
         }
-        public static void SubmenuFilterIsReviews()
+        public static void SubmenuFilterValue(myEnums.Filter filter, myEnums.Operator operatorOfFilter)
         {
-            //Console.Clear();
-            //Console.WriteLine("What will you filter\n");
+            Console.Clear();
+            Console.WriteLine("What is your filtervalue?\n\nPlease input the Value:");
+            String valueAsString = Console.ReadLine();
 
-            ////DataLoader.FilterApps(myEnums.Filter.Reviews, myEnums.Operator.greater_or_equals, 2))
+            if (int.TryParse(valueAsString, out int value))
+            {
+                if (countOfFiltering<1)     //true by the first filter
+                {
+                    DataLoader.FilterApps(DataLoader.AllApps, filter, operatorOfFilter, value);
+                }
+                else
+                {
+                    DataLoader.FilterApps(DataLoader.FilteredApps, filter, operatorOfFilter, value);
+                }
 
-            //ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
-            //    new Option("Price", () => DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)),
-            //    new Option("Reviews", () => DataLoader.FilterApps(myEnums.Filter.Reviews, myEnums.Operator.greater_or_equals, 2)),
-            //    new Option("Size", () => DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2)),
-            //    new Option("Return To Main Menu", () => Mainmenu())
-            //});
-            //ChangeUserMenu.MenuLoopInConsole();
+                //Console.WriteLine("The Apps a filtered by: " + filter + operatorOfFilter + value);
+                DisplayAppsFromListToConsole(DataLoader.FilteredApps);
 
-        }
-        public static void SubmenuFilterIsSize()
-        {
-            //Console.Clear();
-            //Console.WriteLine("What will you filter\n");
-
-            ////DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2)
-
-            //ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
-            //    new Option("Price", () => DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)),
-            //    new Option("Reviews", () => DataLoader.FilterApps(myEnums.Filter.Reviews, myEnums.Operator.greater_or_equals, 2)),
-            //    new Option("Size", () => DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2)),
-            //    new Option("Return To Main Menu", () => Mainmenu())
-            //});
-            //ChangeUserMenu.MenuLoopInConsole();
-
-        }
+                countOfFiltering += 1;
+            }
+            else
+            {
+                Console.WriteLine("This value isn't possible!\n\nPress Key to go back");
+                Console.ReadLine();
+            }
+           
+            
+        }       
         #endregion
 
         public static void DisplayAppsFromListToConsole(List<AppData> apps)
