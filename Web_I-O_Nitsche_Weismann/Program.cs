@@ -20,15 +20,31 @@ namespace Web_I_O_Nitsche_Weismann
             DataLoader.ReadAppsFromURL(';', filePathPhotpgraphy);
             DataLoader.ReadAppsFromURL(';', filePathWeather);
 
-            
+            //DisplayAppsFromListToConsole(DataLoader.AllApps);
 
-            DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2);
+            DataLoader.FilterApps(DataLoader.AllApps,myEnums.Filter.Size, myEnums.Operator.less_or_equals, 30);
+            DisplayAppsFromListToConsole(DataLoader.FilteredApps);
+            int i = DataLoader.FilteredApps.Count();
 
-            Mainmenu();
+
+            DataLoader.FilterApps(DataLoader.FilteredApps, myEnums.Filter.Size, myEnums.Operator.less_or_equals, 10);
+            DisplayAppsFromListToConsole(DataLoader.FilteredApps);
+            int j = DataLoader.FilteredApps.Count();
+
+
+            DataLoader.FilterApps(DataLoader.FilteredApps, myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 5);
+            DisplayAppsFromListToConsole(DataLoader.FilteredApps);
+            int k = DataLoader.FilteredApps.Count();
+
+            Console.WriteLine("Durchgang1: " + i + "   Durchgang2: " + j + "   Durchgang3: " + k);
+
+            Console.ReadLine();
 
             //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
 
             //DisplayAppsFromListToConsole(DataLoader.AllApps);
+
+            Mainmenu();
 
         }
 
