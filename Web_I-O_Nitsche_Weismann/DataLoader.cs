@@ -86,17 +86,66 @@ namespace Web_I_O_Nitsche_Weismann
             app.Installs = parts[5];
             app.PriceType = (myEnums.PriceType)Enum.Parse(typeof(myEnums.PriceType), parts[6]);
             app.Price = double.Parse(parts[7]);
-            //app.ContentRating = (myEnums.ContentRating)Enum.Parse(typeof(myEnums.ContentRating), parts[8]);
-            //app.Genres = (myEnums.Genres)Enum.Parse(typeof(myEnums.Genres), parts[9]);
+            app.ContentRating = ContentRatingAsEnum(parts[8], out bool contentRatingIsEnum);
+            if (!contentRatingIsEnum)
+                throw new Exception("Content rating is no Enum");
+            app.Genres = GenresAsEnum(parts[9], out bool genresIsEnum);
+            if (!genresIsEnum)
+                throw new Exception("Genre is no Enum");
             app.LastUpdated = DateTime.Parse(parts[10]);
             app.CurrentVersion = parts[11];
             app.AndroidVersion = parts[12];
 
-            //for development:
-            app.ContentRating = myEnums.ContentRating.Everyone;
-            app.Genres = myEnums.Genres.Health_Fitness;
-
             return app;
+        }
+        #endregion
+
+        #region Methods
+        private static myEnums.ContentRating ContentRatingAsEnum(string contentRatingAsString, out bool isEnum)
+        {
+            switch (contentRatingAsString)
+            {
+                case "Everyone":
+                    isEnum = true;
+                    return myEnums.ContentRating.Everyone;
+
+                case "Everyone 10+":
+                    isEnum = true;
+                    return myEnums.ContentRating.Everyone_10;
+
+                case "Mature 17+":
+                    isEnum = true;
+                    return myEnums.ContentRating.Mature_17;
+
+                case "Teen":
+                    isEnum = true;
+                    return myEnums.ContentRating.Teen;
+
+                default:
+                    isEnum = false;
+                    return myEnums.ContentRating.Everyone;
+            }
+        }
+        private static myEnums.Genres GenresAsEnum(string genresAsString, out bool isEnum)
+        {
+            switch (genresAsString)
+            {
+                case "Health & Fitness":
+                    isEnum = true;
+                    return myEnums.Genres.Health_Fitness;
+
+                case "Weather":
+                    isEnum = true;
+                    return myEnums.Genres.Weather;
+
+                case "Photography":
+                    isEnum = true;
+                    return myEnums.Genres.Photography;
+
+                default:
+                    isEnum = false;
+                    return myEnums.Genres.Weather;
+            }
         }
         #endregion
     }
