@@ -38,13 +38,16 @@ namespace Web_I_O_Nitsche_Weismann
 
             apps.AddRange(DataLoader.ReadAppsFromFile(';', filePath1, out errorBuffer));
             errorList.AddRange(errorBuffer);
+            errorList.Add(-1);
 
 
             apps.AddRange(DataLoader.ReadAppsFromFile(';', filePath2, out errorBuffer));
             errorList.AddRange(errorBuffer);
+            errorList.Add(-1);
 
             apps.AddRange(DataLoader.ReadAppsFromFile(';', filePath3, out errorBuffer));
             errorList.AddRange(errorBuffer);
+            errorList.Add(-1);
 
             errorLines = errorList;
 
@@ -63,23 +66,32 @@ namespace Web_I_O_Nitsche_Weismann
         {
             Console.WriteLine("Error in Lines:\n");
 
-            int line = 0;
             int filecount = 1;
+            int counter = 0;
+            int loopcount = 0;
             Console.Write("File 1 Error Lines: ");
 
             foreach (int errorLine in errors)
             {
-                if (errorLine < line)
+                loopcount++;
+                if (errorLine == -1 && loopcount!=errors.Count)
                 {
+                    if (counter==0)
+                    {
+                        Console.Write("No Errors");
+                    }
                     filecount++;
                     Console.Write("\n");
                     Console.Write("File " + filecount + " Error Lines: ");
+                    counter = 0;
                 }
-
-                Console.Write(errorLine + " ");
-
-                line = errorLine;
+                else
+                {
+                    counter++;
+                    Console.Write(errorLine + " ");
+                }
             }
+            Console.WriteLine();
         }
     }
 }

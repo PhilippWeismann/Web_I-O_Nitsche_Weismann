@@ -76,7 +76,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             set
             {
-                if (value > 0)
+                if (!(value < 0))
                 {
                     _reviews = value;
                 }
@@ -290,6 +290,7 @@ namespace Web_I_O_Nitsche_Weismann
                 $"{ Size, 10} " +
                 $"{ Installs.ToString(),10} " +
                 $"{ PriceType.ToString(), 8} " +
+                $"{ Price.ToString(),8} " +
                 $"{ ContentRating.ToString(), 12} " +
                 $"{ Genres.ToString(), 20} " +
                 $"{ LastUpdated.ToString("dd.MM.yyyy"), 12} " +

@@ -85,7 +85,7 @@ namespace Web_I_O_Nitsche_Weismann
             app.Size = parts[4];
             app.Installs = parts[5];
             app.PriceType = (myEnums.PriceType)Enum.Parse(typeof(myEnums.PriceType), parts[6]);
-            app.Price = double.Parse(parts[7].Replace(',', '.'));
+            app.Price = double.Parse(parts[7]);
             //app.ContentRating = (myEnums.ContentRating)Enum.Parse(typeof(myEnums.ContentRating), parts[8]);
             //app.Genres = (myEnums.Genres)Enum.Parse(typeof(myEnums.Genres), parts[9]);
             app.LastUpdated = DateTime.Parse(parts[10]);
