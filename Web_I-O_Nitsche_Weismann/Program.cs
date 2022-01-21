@@ -74,16 +74,20 @@ namespace Web_I_O_Nitsche_Weismann
             foreach (int errorLine in errors)
             {
                 loopcount++;
-                if (errorLine == -1 && loopcount!=errors.Count)
+                if (errorLine == -1)
                 {
                     if (counter==0)
                     {
                         Console.Write("No Errors");
                     }
                     filecount++;
-                    Console.Write("\n");
-                    Console.Write("File " + filecount + " Error Lines: ");
                     counter = 0;
+
+                    if (loopcount!=errors.Count)
+                    {
+                        Console.Write("\n");
+                        Console.Write("File " + filecount + " Error Lines: ");
+                    }
                 }
                 else
                 {
