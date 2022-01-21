@@ -178,9 +178,9 @@ namespace Web_I_O_Nitsche_Weismann
 
                                 if (app.Size.EndsWith("M"))
                                 {
-                                    string sizeString = "35.8M";//app.Size.ToString();
-                                    string test = sizeString.Remove((sizeString.Length -1), 1);
-                                    sizeString = "0";
+                                    string sizeString = app.Size.ToString();
+                                    sizeString = sizeString.Remove(app.Size.ToString().Length - 1, 1);
+                                    sizeString = sizeString.Replace('.', ',');
                                     try
                                     {
                                         size = double.Parse(sizeString);
