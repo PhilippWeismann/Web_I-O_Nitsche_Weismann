@@ -32,14 +32,14 @@ namespace Web_I_O_Nitsche_Weismann
 
         }
 
-        #region Mainmenu
+        #region Menu
         public static void Mainmenu()
         {
             // Main Menu
             bool exit = false;
             ConsoleMenu Mainmenu = new ConsoleMenu(new Option[]{
                 new Option("Show all Apps", () => DisplayAppsFromListToConsole(DataLoader.AllApps)),
-                new Option("Filter Apps", () => DisplayAppsFromListToConsole(DataLoader.FilteredApps)),
+                new Option("Filter Apps", () => SubmenuFilterApps()),
                 new Option("Show lines where conversion didn't work", () => DisplayErrorLines(DataLoader.ErrorLines)),
                 new Option("Exit", () => exit = true)
             });
@@ -51,6 +51,68 @@ namespace Web_I_O_Nitsche_Weismann
                 Console.WriteLine("Navigate with Arrow Up - Arrow Down - Keys\n");
                 Mainmenu.MenuLoopInConsole();
             } while (!exit);
+        }
+        public static void SubmenuFilterApps()
+        {
+            Console.Clear();
+            Console.WriteLine("What will you filter\n");
+
+            ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
+                new Option("Price", () => SubmenuFilterIsPrice()),
+                new Option("Reviews", () => SubmenuFilterIsReviews()),
+                new Option("Size", () => SubmenuFilterIsSize()),
+                new Option("Return To Main Menu", () => Mainmenu())
+            });
+            ChangeUserMenu.MenuLoopInConsole();
+
+        }
+        public static void SubmenuFilterIsPrice()
+        {
+            //Console.Clear();
+            //Console.WriteLine("What will you filter\n");
+
+            ////DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)
+
+            //ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
+            //    new Option("Price", () => DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)),
+            //    new Option("Reviews", () => DataLoader.FilterApps(myEnums.Filter.Reviews, myEnums.Operator.greater_or_equals, 2)),
+            //    new Option("Size", () => DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2)),
+            //    new Option("Return To Main Menu", () => Mainmenu())
+            //});
+            //ChangeUserMenu.MenuLoopInConsole();
+
+        }
+        public static void SubmenuFilterIsReviews()
+        {
+            //Console.Clear();
+            //Console.WriteLine("What will you filter\n");
+
+            ////DataLoader.FilterApps(myEnums.Filter.Reviews, myEnums.Operator.greater_or_equals, 2))
+
+            //ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
+            //    new Option("Price", () => DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)),
+            //    new Option("Reviews", () => DataLoader.FilterApps(myEnums.Filter.Reviews, myEnums.Operator.greater_or_equals, 2)),
+            //    new Option("Size", () => DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2)),
+            //    new Option("Return To Main Menu", () => Mainmenu())
+            //});
+            //ChangeUserMenu.MenuLoopInConsole();
+
+        }
+        public static void SubmenuFilterIsSize()
+        {
+            //Console.Clear();
+            //Console.WriteLine("What will you filter\n");
+
+            ////DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2)
+
+            //ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
+            //    new Option("Price", () => DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)),
+            //    new Option("Reviews", () => DataLoader.FilterApps(myEnums.Filter.Reviews, myEnums.Operator.greater_or_equals, 2)),
+            //    new Option("Size", () => DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2)),
+            //    new Option("Return To Main Menu", () => Mainmenu())
+            //});
+            //ChangeUserMenu.MenuLoopInConsole();
+
         }
         #endregion
 
