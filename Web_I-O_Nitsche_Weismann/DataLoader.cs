@@ -11,7 +11,7 @@ namespace Web_I_O_Nitsche_Weismann
     class DataLoader
     {
         #region readfromtxt
-        public static List<AppData> ReadAppsFromFile(char seperator, string filePath, out List<int> errors)
+        public static List<AppData> ReadAppsFromFile(char seperator, string filePath, List<int> errorBuffer)
         {
             List<AppData> myApps = new List<AppData>();
 
@@ -56,7 +56,7 @@ namespace Web_I_O_Nitsche_Weismann
                         /*throw*/
                         new Exception("Line (Number: " + counter.ToString() + ") could not be convertet to valid App.");
 
-                        errorList.Add(counter);
+                        errorBuffer.Add(counter);
                     }
                 }
 
@@ -64,7 +64,6 @@ namespace Web_I_O_Nitsche_Weismann
             }
             myStreamReader.Close();
 
-            errors = errorList;
             return myApps;
         }
         public static AppData ConvertLineToApp(string line, char seperator)
