@@ -17,6 +17,7 @@ namespace Web_I_O_Nitsche_Weismann
         static List<AppData> _filteredApps = new List<AppData>();
 
         static List<int> _errorLines = new List<int>();
+        
 
         #endregion
 
@@ -105,7 +106,130 @@ namespace Web_I_O_Nitsche_Weismann
 
             ErrorLines.Add(-1);
         }
-        public static AppData ConvertLineToApp(string line, char seperator)
+
+        public static void FilterApps(myEnums.Filter filter, myEnums.Operator compareOperator ,double filterValue)
+        {
+
+            switch (filter)
+            {
+                case myEnums.Filter.Price:
+                    switch (compareOperator)
+                    {
+                        case myEnums.Operator.greater_or_equals:
+                            foreach (AppData app in AllApps)
+                            {
+                                if (app.Price >= filterValue)
+                                {
+                                    FilteredApps.Add(app);
+                                }
+                            }
+                            break;
+
+                        case myEnums.Operator.less_or_equals:
+                            foreach (AppData app in AllApps)
+                            {
+                                if (app.Price <= filterValue)
+                                {
+                                    FilteredApps.Add(app);
+                                }
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                    break;
+
+                case myEnums.Filter.Reviews:
+                    switch (compareOperator)
+                    {
+                        case myEnums.Operator.greater_or_equals:
+                            foreach (AppData app in AllApps)
+                            {
+                                if (app.Reviews >= filterValue)
+                                {
+                                    FilteredApps.Add(app);
+                                }
+                            }
+                            break;
+
+                        case myEnums.Operator.less_or_equals:
+                            foreach (AppData app in AllApps)
+                            {
+                                if (app.Reviews <= filterValue)
+                                {
+                                    FilteredApps.Add(app);
+                                }
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                    break;
+
+                case myEnums.Filter.Size:
+                    double size = 0;
+                    switch (compareOperator)
+                    {
+                        case myEnums.Operator.greater_or_equals:
+                            foreach (AppData app in AllApps)
+                            {
+
+                                if (app.Size.EndsWith("M"))
+                                {
+                                    string sizeString = app.Size.ToString();
+                                    sizeString.Remove(sizeString.Length - 1, 1);
+                                    sizeString = "0";
+                                    try
+                                    {
+                                        size = double.Parse(sizeString);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        new Exception("oups");
+                                    }
+
+                                }
+
+                                //string number = app.Size.
+                                if (size >= filterValue || app.Size.Equals("Varies with device"))
+                                {
+                                    FilteredApps.Add(app);
+                                }
+                            }
+                            break;
+
+                        case myEnums.Operator.less_or_equals:
+                            foreach (AppData app in AllApps)
+                            {
+                                if (app.Size[app.Size.Length - 1].Equals('M'))
+                                {
+                                    app.Size.TrimEnd('M');
+                                    size = double.Parse(app.Size);
+                                }
+
+                                //string number = app.Size.
+                                if (size <= filterValue || app.Size.Equals("Varies with device"))
+                                {
+                                    FilteredApps.Add(app);
+                                }
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+
+        private static AppData ConvertLineToApp(string line, char seperator)
         {
             AppData app = new AppData();
 

@@ -10,6 +10,8 @@ namespace Web_I_O_Nitsche_Weismann
     {
         static void Main(string[] args)
         {
+
+
             string filePathHealthFitness = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/HealthFitnessApps.CSV";
             string filePathPhotpgraphy = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/PhotographyApps.CSV";
             string filePathWeather = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/WeatherApps.CSV";
@@ -18,7 +20,11 @@ namespace Web_I_O_Nitsche_Weismann
             DataLoader.ReadAppsFromURL(';', filePathPhotpgraphy);
             DataLoader.ReadAppsFromURL(';', filePathWeather);
 
-            DisplayAppsFromListToConsole(DataLoader.AllApps);
+            DataLoader.FilterApps(myEnums.Filter.Size, myEnums.Operator.greater_or_equals, 2);
+
+            DisplayAppsFromListToConsole(DataLoader.FilteredApps);
+
+            //DisplayAppsFromListToConsole(DataLoader.AllApps);
 
             DisplayErrorLines(DataLoader.ErrorLines);
 

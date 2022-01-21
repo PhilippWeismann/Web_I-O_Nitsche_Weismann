@@ -32,5 +32,18 @@ namespace Web_I_O_Nitsche_Weismann
             Health_Fitness,     //Health & Fitness  //mit switch case schauen ob der string Health & Fitness ist und in daun dieses enum auswählen
             Photography
         }
+        public enum Filter
+        {
+            Price,
+            Reviews,
+            Size
+        }
+
+        public enum Operator
+        {
+            greater_or_equals,
+            less_or_equals
+        }
+
     }
 }
