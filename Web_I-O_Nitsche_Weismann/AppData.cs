@@ -133,7 +133,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             set
             {
-                if (value > 0)
+                if (!(value < 0))
                 {
                     _price = value;
                 }
@@ -284,15 +284,15 @@ namespace Web_I_O_Nitsche_Weismann
 
             string s = string.Format($"" +
                 $"{ AppName, 30} " +
-                $"{ Category.ToString(), 30} " +
+                $"{ Category.ToString(), 20} " +
                 $"{ Rating.ToString(), 3} " +
                 $"{ Reviews.ToString(), 10} " +
                 $"{ Size, 10} " +
-                $"{ Installs.ToString() + "+",15} " +
+                $"{ Installs.ToString(),10} " +
                 $"{ PriceType.ToString(), 8} " +
-                $"{ ContentRating.ToString(), 20} " +
+                $"{ ContentRating.ToString(), 12} " +
                 $"{ Genres.ToString(), 20} " +
-                $"{ LastUpdated.ToString(), 12} " +
+                $"{ LastUpdated.ToString("dd.MM.yyyy"), 12} " +
                 $"{ CurrentVersion.ToString(), 10} " +
                 $"{ AndroidVersion.ToString(), 10}");
 
