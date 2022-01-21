@@ -193,7 +193,7 @@ namespace Web_I_O_Nitsche_Weismann
                                 }
 
                                 //string number = app.Size.
-                                if (size >= filterValue || app.Size.Equals("Varies with device"))
+                                if (size >= filterValue)
                                 {
                                     FilteredApps.Add(app);
                                 }
@@ -203,14 +203,25 @@ namespace Web_I_O_Nitsche_Weismann
                         case myEnums.Operator.less_or_equals:
                             foreach (AppData app in AllApps)
                             {
-                                if (app.Size[app.Size.Length - 1].Equals('M'))
+
+                                if (app.Size.EndsWith("M"))
                                 {
-                                    app.Size.TrimEnd('M');
-                                    size = double.Parse(app.Size);
+                                    string sizeString = app.Size.ToString();
+                                    sizeString = sizeString.Remove(app.Size.ToString().Length - 1, 1);
+                                    sizeString = sizeString.Replace('.', ',');
+                                    try
+                                    {
+                                        size = double.Parse(sizeString);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        new Exception("oups");
+                                    }
+
                                 }
 
                                 //string number = app.Size.
-                                if (size <= filterValue || app.Size.Equals("Varies with device"))
+                                if (size <= filterValue)
                                 {
                                     FilteredApps.Add(app);
                                 }
