@@ -15,7 +15,7 @@ namespace Web_I_O_Nitsche_Weismann
         int _rating;
         int _reviews;
         string _size;
-        long _installs;
+        string _installs;
         double _price;
         DateTime _lastUpdated;
         string _currentVersion;
@@ -57,7 +57,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             set
             {
-                if (value < 0)
+                if (value > 0)
                 {
                     _rating = value;
                 }
@@ -76,7 +76,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             set
             {
-                if (value < 0)
+                if (value > 0)
                 {
                     _reviews = value;
                 }
@@ -95,7 +95,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             set
             {
-                if (value.Length>0)
+                if (value.Length > 0)
                 {
                     _size = value;
                 }
@@ -106,7 +106,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
         }
 
-        public long Installs
+        public string Installs
         {
             get
             {
@@ -114,7 +114,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             set
             {
-                if (value < 0)
+                if (value.Length > 1)
                 {
                     _installs = value;
                 }
@@ -133,7 +133,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             set
             {
-                if (value < 0)
+                if (value > 0)
                 {
                     _price = value;
                 }
@@ -152,7 +152,7 @@ namespace Web_I_O_Nitsche_Weismann
             }
             set
             {
-                if (value > DateTime.Now)
+                if (value < DateTime.Now)
                 {
                     _lastUpdated = value;
                 }
@@ -257,7 +257,7 @@ namespace Web_I_O_Nitsche_Weismann
 
         }
 
-        public AppData(string appName, int rating, int reviews, string size, long installs, double price, DateTime lastUpdated, string currentVersion, string androidVersion, myEnums.Category category, myEnums.PriceType priceType, myEnums.ContentRating contentRating, myEnums.Genres genres)
+        public AppData(string appName, int rating, int reviews, string size, string installs, double price, DateTime lastUpdated, string currentVersion, string androidVersion, myEnums.Category category, myEnums.PriceType priceType, myEnums.ContentRating contentRating, myEnums.Genres genres)
         {
             AppName = appName;
             Rating = rating;
