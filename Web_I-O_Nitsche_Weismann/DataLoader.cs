@@ -178,8 +178,8 @@ namespace Web_I_O_Nitsche_Weismann
 
                                 if (app.Size.EndsWith("M"))
                                 {
-                                    string sizeString = app.Size.ToString();
-                                    sizeString.Remove(sizeString.Length - 1, 1);
+                                    string sizeString = "35.8M";//app.Size.ToString();
+                                    string test = sizeString.Remove((sizeString.Length -1), 1);
                                     sizeString = "0";
                                     try
                                     {
