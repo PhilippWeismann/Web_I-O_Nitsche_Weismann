@@ -10,9 +10,9 @@ namespace Web_I_O_Nitsche_Weismann
     {
         public enum Category
         {
-            WEATHER,
-            HEALTH_AND_FITNESS,
-            PHOTOGRAPHY
+            Weather,
+            Health_and_Fitness,
+            Photography
         }
         public enum PriceType
         {

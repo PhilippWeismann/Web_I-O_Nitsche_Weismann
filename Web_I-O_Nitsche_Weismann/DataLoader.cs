@@ -34,7 +34,6 @@ namespace Web_I_O_Nitsche_Weismann
 
             string line;
             int counter = 1;
-            List<int> errorList = new List<int>();
 
 
             while (myStreamReader.Peek() != -1)
@@ -72,27 +71,54 @@ namespace Web_I_O_Nitsche_Weismann
 
             string[] parts = line.Split(seperator);
 
+
+            //Replacement not needed because every number is written with komma
             //for (int i = 0; i < parts.Length; i++)
             //{
             //    parts[i] = parts[i].Replace('.', ',');
             //}
 
+
+            // App Name
             app.AppName = parts[0];
-            app.Category = (myEnums.Category)Enum.Parse(typeof(myEnums.Category), parts[1]);
+
+            //Category
+            app.Category = CategoryAsEnum(parts[1], out bool categoryIsEnum);
+            if (!categoryIsEnum) throw new Exception("Category is no Enum");
+
+            //Rating
             app.Rating = int.Parse(parts[2]);
+
+            //Reviews
             app.Reviews = int.Parse(parts[3]);
+
+            //Size
             app.Size = parts[4];
+
+            //Installs
             app.Installs = parts[5];
+
+            //Price Type
             app.PriceType = (myEnums.PriceType)Enum.Parse(typeof(myEnums.PriceType), parts[6]);
+
+            //Price
             app.Price = double.Parse(parts[7]);
+
+            //Content Rating
             app.ContentRating = ContentRatingAsEnum(parts[8], out bool contentRatingIsEnum);
-            if (!contentRatingIsEnum)
-                throw new Exception("Content rating is no Enum");
+            if (!contentRatingIsEnum) throw new Exception("Content rating is no Enum");
+
+            //Genres
             app.Genres = GenresAsEnum(parts[9], out bool genresIsEnum);
-            if (!genresIsEnum)
-                throw new Exception("Genre is no Enum");
+            if (!genresIsEnum) throw new Exception("Genre is no Enum");
+
+            // Last Updated
             app.LastUpdated = DateTime.Parse(parts[10]);
+
+            //Current Version
             app.CurrentVersion = parts[11];
+
+            //Android Version
             app.AndroidVersion = parts[12];
 
             return app;
@@ -100,6 +126,27 @@ namespace Web_I_O_Nitsche_Weismann
         #endregion
 
         #region Methods
+        private static myEnums.Category CategoryAsEnum(string categoryAsString, out bool isEnum)
+        {
+            switch (categoryAsString)
+            {
+                case "WEATHER":
+                    isEnum = true;
+                    return myEnums.Category.Weather;
+
+                case "HEALTH_AND_FITNESS":
+                    isEnum = true;
+                    return myEnums.Category.Health_and_Fitness;
+
+                case "PHOTOGRAPHY":
+                    isEnum = true;
+                    return myEnums.Category.Photography;
+
+                default:
+                    isEnum = false;
+                    return myEnums.Category.Health_and_Fitness;
+            }
+        }
         private static myEnums.ContentRating ContentRatingAsEnum(string contentRatingAsString, out bool isEnum)
         {
             switch (contentRatingAsString)
