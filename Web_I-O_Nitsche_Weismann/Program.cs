@@ -69,8 +69,8 @@ namespace Web_I_O_Nitsche_Weismann
             //DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)
 
             ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
-                new Option(">=", () => SubmenuFilterValue(filter,myEnums.Operator.greater_or_equals)),
-                new Option("<=", () => SubmenuFilterValue(filter,myEnums.Operator.less_or_equals)),
+                new Option(">= (greater or equals)", () => SubmenuFilterValue(filter,myEnums.Operator.greater_or_equals)),
+                new Option("<= (less or equals)", () => SubmenuFilterValue(filter,myEnums.Operator.less_or_equals)),
                 new Option("Return To Main Menu", () => Mainmenu())
             });
             ChangeUserMenu.MenuLoopInConsole();
@@ -158,10 +158,6 @@ namespace Web_I_O_Nitsche_Weismann
         }
         public static void Settings()
         {
-            //Setting to Print €-Sign
-            Console.OutputEncoding = Encoding.Default;
-            Console.OutputEncoding = Encoding.UTF8;
-
             //Console Settings
             Console.Title = "Web - IO | © Simon Nitsche & Philipp Weismann";
             Console.ForegroundColor = ConsoleColor.White;
