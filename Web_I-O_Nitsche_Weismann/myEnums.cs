@@ -22,14 +22,14 @@ namespace Web_I_O_Nitsche_Weismann
         public enum ContentRating
         {
             Everyone ,
-            Everyone_10,        //Everyone 10+      //mit switch case schauen ob der string Everyone 10+ ist und in daun dieses enum auswählen 
+            Everyone_10,        //Everyone 10+      
             Teen,
-            Mature_17           //Mature 17         //mit switch case schauen ob der string Mature 17 ist und in daun dieses enum auswählen
+            Mature_17           //Mature 17      
         }
         public enum Genres
         {
             Weather,
-            Health_Fitness,     //Health & Fitness  //mit switch case schauen ob der string Health & Fitness ist und in daun dieses enum auswählen
+            Health_Fitness,     //Health & Fitness  
             Photography
         }
         public enum Filter

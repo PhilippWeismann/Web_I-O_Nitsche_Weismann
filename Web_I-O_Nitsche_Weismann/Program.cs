@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Webshop_Nitsche_Weismann;
+using Webshop_Nitsche_Weismann; //for the menu
 
 namespace Web_I_O_Nitsche_Weismann
 {
@@ -23,32 +23,7 @@ namespace Web_I_O_Nitsche_Weismann
             DataLoader.ReadAppsFromURL(';', filePathPhotpgraphy);
             DataLoader.ReadAppsFromURL(';', filePathWeather);
 
-            //DisplayAppsFromListToConsole(DataLoader.AllApps);
-
-            //DataLoader.FilterApps(DataLoader.AllApps,myEnums.Filter.Size, myEnums.Operator.less_or_equals, 30);
-            //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
-            //int i = DataLoader.FilteredApps.Count();
-
-
-            //DataLoader.FilterApps(DataLoader.FilteredApps, myEnums.Filter.Size, myEnums.Operator.less_or_equals, 10);
-            //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
-            //int j = DataLoader.FilteredApps.Count();
-
-
-            //DataLoader.FilterApps(DataLoader.FilteredApps, myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 5);
-            //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
-            //int k = DataLoader.FilteredApps.Count();
-
-            //Console.WriteLine("Durchgang1: " + i + "   Durchgang2: " + j + "   Durchgang3: " + k);
-
-            //Console.ReadLine();
-
-            //DisplayAppsFromListToConsole(DataLoader.FilteredApps);
-
-            //DisplayAppsFromListToConsole(DataLoader.AllApps);
-
             Mainmenu();
-
         }
 
         #region Menu - Methods
@@ -126,9 +101,7 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 Console.WriteLine("This value isn't possible!\n\nPress Key to go back");
                 Console.ReadLine();
-            }
-           
-            
+            }                    
         }
         #endregion
 
@@ -145,7 +118,6 @@ namespace Web_I_O_Nitsche_Weismann
             Console.WriteLine("\n\nPress any key to go back...");
             Console.ReadLine();
         }
-
         public static void DisplayErrorLines(List<int> errors)
         {
             Console.Clear();
@@ -184,7 +156,6 @@ namespace Web_I_O_Nitsche_Weismann
             Console.WriteLine("\n\nPress any key to go back...");
             Console.ReadLine();
         }
-
         public static void Settings()
         {
             //Setting to Print €-Sign

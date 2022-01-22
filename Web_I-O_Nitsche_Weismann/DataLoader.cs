@@ -11,18 +11,12 @@ namespace Web_I_O_Nitsche_Weismann
     static class DataLoader
     {
         #region Members
-
         static List<AppData> _allApps = new List<AppData>();
-
         static List<AppData> _filteredApps = new List<AppData>();
-
-        static List<int> _errorLines = new List<int>();
-        
-
+        static List<int> _errorLines = new List<int>();      
         #endregion
 
         #region Properties
-
         public static List<AppData> AllApps
         {
             get
@@ -34,7 +28,6 @@ namespace Web_I_O_Nitsche_Weismann
                 _allApps = value;
             }
         }
-
         public static List<AppData> FilteredApps
         {
             get
@@ -46,7 +39,6 @@ namespace Web_I_O_Nitsche_Weismann
                 _filteredApps = value;
             }
         }
-
         public static List<int> ErrorLines
         {
             get
@@ -58,24 +50,20 @@ namespace Web_I_O_Nitsche_Weismann
                 _errorLines = value;
             }
         }
-
         #endregion
 
         #region Methods
         public static void ReadAppsFromURL(char seperator, string filePath)
         {
             
-
             WebClient myWebclient = new WebClient();
 
             Stream myStream = myWebclient.OpenRead(filePath);
 
             StreamReader myStreamReader = new StreamReader(myStream);
 
-
             string line;
             int counter = 1;
-
 
             while (myStreamReader.Peek() != -1)
             {
@@ -99,7 +87,6 @@ namespace Web_I_O_Nitsche_Weismann
                         ErrorLines.Add(counter);
                     }
                 }
-
                 counter++;
             }
             myStreamReader.Close();
@@ -244,27 +231,15 @@ namespace Web_I_O_Nitsche_Weismann
 
             FilteredApps = new List<AppData>();
 
-            FilteredApps.AddRange(appsToBeFiltered);
-
-            
-
+            FilteredApps.AddRange(appsToBeFiltered);                      
         }
-
 
         private static AppData ConvertLineToApp(string line, char seperator)
         {
             AppData app = new AppData();
 
             string[] parts = line.Split(seperator);
-
-
-            //Replacement not needed because every number is written with komma
-            //for (int i = 0; i < parts.Length; i++)
-            //{
-            //    parts[i] = parts[i].Replace('.', ',');
-            //}
-
-
+                     
             // App Name
             app.AppName = parts[0];
 

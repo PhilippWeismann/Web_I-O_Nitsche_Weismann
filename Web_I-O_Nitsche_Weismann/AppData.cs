@@ -29,7 +29,6 @@ namespace Web_I_O_Nitsche_Weismann
         #endregion
 
         #region Properties (public get / private set) + Data Validation
-
         public string AppName
         {
             get
@@ -48,7 +47,6 @@ namespace Web_I_O_Nitsche_Weismann
                 }
             }
         }
-
         public int Rating
         {
             get
@@ -67,7 +65,6 @@ namespace Web_I_O_Nitsche_Weismann
                 }
             }
         }
-
         public int Reviews
         {
             get
@@ -86,7 +83,6 @@ namespace Web_I_O_Nitsche_Weismann
                 }
             }
         }
-
         public string Size
         {
             get
@@ -105,7 +101,6 @@ namespace Web_I_O_Nitsche_Weismann
                 }
             }
         }
-
         public string Installs
         {
             get
@@ -124,7 +119,6 @@ namespace Web_I_O_Nitsche_Weismann
                 }
             }
         }
-
         public double Price
         {
             get
@@ -143,7 +137,6 @@ namespace Web_I_O_Nitsche_Weismann
                 }
             }
         }
-
         public DateTime LastUpdated
         {
             get
@@ -162,7 +155,6 @@ namespace Web_I_O_Nitsche_Weismann
                 }
             }
         }
-
         public string CurrentVersion
         {
             get
@@ -181,7 +173,6 @@ namespace Web_I_O_Nitsche_Weismann
                 }
             }
         }
-
         public string AndroidVersion
         {
             get
@@ -200,7 +191,6 @@ namespace Web_I_O_Nitsche_Weismann
                 }
             }
         }
-
         public myEnums.Category Category
         {
             get
@@ -212,7 +202,6 @@ namespace Web_I_O_Nitsche_Weismann
                 _category = value;
             }
         }
-
         public myEnums.PriceType PriceType
         {
             get
@@ -224,7 +213,6 @@ namespace Web_I_O_Nitsche_Weismann
                 _priceType = value;
             }
         }
-
         public myEnums.ContentRating ContentRating
         {
             get
@@ -236,7 +224,6 @@ namespace Web_I_O_Nitsche_Weismann
                 _contentRating = value;
             }
         }
-
         public myEnums.Genres Genres
         {
             get
@@ -248,7 +235,6 @@ namespace Web_I_O_Nitsche_Weismann
                 _genres = value;
             }
         }
-
         #endregion
 
         #region Konstruktors
@@ -276,9 +262,7 @@ namespace Web_I_O_Nitsche_Weismann
 
         #endregion
 
-
         #region Methods
-
         public string AppDataString()
         {
             string currentVersionString = CurrentVersion;
@@ -286,7 +270,6 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 currentVersionString = "Variable";
             }
-
 
             string androidVersionString = AndroidVersion;
             if (AndroidVersion.Equals("Varies with device"))
@@ -305,8 +288,6 @@ namespace Web_I_O_Nitsche_Weismann
             {
                 sizeString = "Variable";
             }
-
-
 
             string name = AppName;
             int max = 45;
