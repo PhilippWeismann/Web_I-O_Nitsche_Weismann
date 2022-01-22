@@ -13,6 +13,7 @@ namespace Web_I_O_Nitsche_Weismann
 
         static void Main(string[] args)
         {
+            Settings();
             
             string filePathHealthFitness = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/HealthFitnessApps.CSV";
             string filePathPhotpgraphy = @"https://fhwels.s3.eu-central-1.amazonaws.com/PRO1UE_WS21/PhotographyApps.CSV";
@@ -56,10 +57,10 @@ namespace Web_I_O_Nitsche_Weismann
             // Main Menu
             bool exit = false;
             ConsoleMenu Mainmenu = new ConsoleMenu(new Option[]{
-                new Option("Show all Apps", () => DisplayAppsFromListToConsole(DataLoader.AllApps)),
-                new Option("Filter Apps (more often possible, old filters are retained)", () => SubmenuFilterApps()),
-                new Option("Rest filters", () => countOfFiltering=0),
-                new Option("Show lines where conversion didn't work", () => DisplayErrorLines(DataLoader.ErrorLines)),
+                new Option("Display all Apps from Database", () => DisplayAppsFromListToConsole(DataLoader.AllApps)),
+                new Option("Filter Apps (multiple times possible, old filters are retained)", () => SubmenuFilterApps()),
+                new Option("Reset filters", () => countOfFiltering=0),
+                new Option("Show lines where conversion from Database didn't work", () => DisplayErrorLines(DataLoader.ErrorLines)),
                 new Option("Exit", () => exit = true)
             });
 
@@ -74,7 +75,7 @@ namespace Web_I_O_Nitsche_Weismann
         public static void SubmenuFilterApps()
         {
             Console.Clear();
-            Console.WriteLine("What will you filter\n");
+            Console.WriteLine("By what do you want to filter? (filtercriteria - less/greater than - filtervalue)\n");
 
             ConsoleMenu ChangeUserMenu = new ConsoleMenu(new Option[]{
                 new Option("Price", () => SubmenuOperator(myEnums.Filter.Price)),
@@ -88,7 +89,7 @@ namespace Web_I_O_Nitsche_Weismann
         public static void SubmenuOperator(myEnums.Filter filter)
         {
             Console.Clear();
-            Console.WriteLine("Will you filter lesser or greater Apps\n");
+            Console.WriteLine("Should the filterd Criteria be less or greater than the given filtervalue?\n");
 
             //DataLoader.FilterApps(myEnums.Filter.Price, myEnums.Operator.greater_or_equals, 2)
 
@@ -102,7 +103,7 @@ namespace Web_I_O_Nitsche_Weismann
         public static void SubmenuFilterValue(myEnums.Filter filter, myEnums.Operator operatorOfFilter)
         {
             Console.Clear();
-            Console.WriteLine("What is your filtervalue?\n\nPlease input the Value:");
+            Console.WriteLine("Please enter your filtervalue?\n\nPlease input the Value:");
             String valueAsString = Console.ReadLine();
 
             if (int.TryParse(valueAsString, out int value))
@@ -116,7 +117,7 @@ namespace Web_I_O_Nitsche_Weismann
                     DataLoader.FilterApps(DataLoader.FilteredApps, filter, operatorOfFilter, value);
                 }
 
-                //Console.WriteLine("The Apps a filtered by: " + filter + operatorOfFilter + value);
+                //Console.WriteLine("The Apps are filtered by: " + filter + operatorOfFilter + value);
                 DisplayAppsFromListToConsole(DataLoader.FilteredApps);
 
                 countOfFiltering += 1;
@@ -182,5 +183,20 @@ namespace Web_I_O_Nitsche_Weismann
             Console.WriteLine("\n\nPress any key to go back...");
             Console.ReadLine();
         }
+
+        public static void Settings()
+        {
+            //Setting to Print €-Sign
+            Console.OutputEncoding = Encoding.Default;
+            Console.OutputEncoding = Encoding.UTF8;
+
+            //Console Settings
+            Console.Title = "Web - IO | © Simon Nitsche & Philipp Weismann";
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.SetWindowSize(Console.LargestWindowWidth-18, Console.LargestWindowHeight-7);
+
+            Console.SetWindowPosition(0, 0);
+        }// Settings for Console-Appearance
     }
 }

@@ -281,21 +281,55 @@ namespace Web_I_O_Nitsche_Weismann
 
         public string AppDataString()
         {
+            string currentVersionString = CurrentVersion;
+            if (CurrentVersion.Equals("Varies with device"))
+            {
+                currentVersionString = "Variable";
+            }
+
+
+            string androidVersionString = AndroidVersion;
+            if (AndroidVersion.Equals("Varies with device"))
+            {
+                androidVersionString = "Variable";
+            }
+ 
+            if (AndroidVersion.Contains("and up"))
+            {
+                androidVersionString = AndroidVersion.Remove(AndroidVersion.Length - 7, 7);
+                androidVersionString = "> " + androidVersionString;
+            }
+
+            string sizeString = Size;
+            if (Size.Equals("Varies with device"))
+            {
+                sizeString = "Variable";
+            }
+
+
+
+            string name = AppName;
+            int max = 45;
+            if (AppName.Length > max)
+            {
+                name = AppName.Remove(max, name.Length-max);
+                name += " ...";
+            }
 
             string s = string.Format($"" +
-                $"{ AppName, 30} " +
+                $"{ name, -50} " +
                 $"{ Category.ToString(), 20} " +
                 $"{ Rating.ToString(), 3} " +
                 $"{ Reviews.ToString(), 10} " +
-                $"{ Size, 10} " +
-                $"{ Installs.ToString(),10} " +
+                $"{ sizeString, 10} " +
+                $"{ Installs.ToString(),15} " +
                 $"{ PriceType.ToString(), 8} " +
                 $"{ Price.ToString(),8} " +
                 $"{ ContentRating.ToString(), 12} " +
-                $"{ Genres.ToString(), 20} " +
+                //$"{ Genres.ToString(), 20} " +           // Genres are not displayed to save Space
                 $"{ LastUpdated.ToString("dd.MM.yyyy"), 12} " +
-                $"{ CurrentVersion.ToString(), 10} " +
-                $"{ AndroidVersion.ToString(), 10}");
+                $"{ currentVersionString, 12}" +
+                $"{ androidVersionString, 12}");
 
             return s;
         }
