@@ -51,7 +51,7 @@ namespace Web_I_O_Nitsche_Weismann
 
         }
 
-        #region Menu
+        #region Menu - Methods
         public static void Mainmenu()
         {
             // Main Menu
@@ -129,9 +129,10 @@ namespace Web_I_O_Nitsche_Weismann
             }
            
             
-        }       
+        }
         #endregion
 
+        #region Methods
         public static void DisplayAppsFromListToConsole(List<AppData> apps)
         {
             Console.Clear();
@@ -148,7 +149,7 @@ namespace Web_I_O_Nitsche_Weismann
         public static void DisplayErrorLines(List<int> errors)
         {
             Console.Clear();
-            Console.WriteLine("Errors occured during reading AppData from Files:\n");
+            Console.WriteLine("Errors occured during reading AppData from Database:\n");
 
             int filecount = 1;
             int counter = 0;
@@ -198,5 +199,6 @@ namespace Web_I_O_Nitsche_Weismann
 
             Console.SetWindowPosition(0, 0);
         }// Settings for Console-Appearance
+        #endregion
     }
 }
