@@ -157,7 +157,7 @@ namespace Web_I_O_Nitsche_Weismann
 
             Console.WriteLine("\n\nPress any key to go back...");
             Console.ReadLine();
-        }
+        }       //Show lines where conversion from Database didn't work, if there is no error write "No Errors"
         public static void Settings()
         {
             //Console Settings

@@ -54,8 +54,7 @@ namespace Web_I_O_Nitsche_Weismann
 
         #region Methods
         public static void ReadAppsFromURL(char seperator, string filePath)
-        {
-            
+        {            
             WebClient myWebclient = new WebClient();
 
             Stream myStream = myWebclient.OpenRead(filePath);
@@ -284,6 +283,7 @@ namespace Web_I_O_Nitsche_Weismann
 
             return app;
         }
+
         private static myEnums.Category CategoryAsEnum(string categoryAsString, out bool isEnum)
         {
             switch (categoryAsString)
