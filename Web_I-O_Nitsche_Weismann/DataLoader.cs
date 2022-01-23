@@ -92,7 +92,6 @@ namespace Web_I_O_Nitsche_Weismann
 
             ErrorLines.Add(-1);
         }
-
         public static void FilterApps(List<AppData> appsToBeFiltered, myEnums.Filter filter, myEnums.Operator compareOperator ,double filterValue)
         {
             List<AppData> filteredBeforeApps = new List<AppData>();
@@ -232,7 +231,6 @@ namespace Web_I_O_Nitsche_Weismann
 
             FilteredApps.AddRange(appsToBeFiltered);                      
         }
-
         private static AppData ConvertLineToApp(string line, char seperator)
         {
             AppData app = new AppData();
@@ -283,7 +281,6 @@ namespace Web_I_O_Nitsche_Weismann
 
             return app;
         }
-
         private static myEnums.Category CategoryAsEnum(string categoryAsString, out bool isEnum)
         {
             switch (categoryAsString)
@@ -351,7 +348,6 @@ namespace Web_I_O_Nitsche_Weismann
                     return myEnums.Genres.Weather;
             }
         }
-
         public static void AppsToCsv()
         {
             using (StreamWriter writer = new StreamWriter(@"..\..\Filtered_Apps.csv"))
