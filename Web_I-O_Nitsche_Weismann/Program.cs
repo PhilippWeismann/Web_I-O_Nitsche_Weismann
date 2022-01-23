@@ -92,9 +92,11 @@ namespace Web_I_O_Nitsche_Weismann
                     DataLoader.FilterApps(DataLoader.FilteredApps, filter, operatorOfFilter, value);
                 }
 
+                DataLoader.AppsToCsv();     //to generate csv data
+
                 //Console.WriteLine("The Apps are filtered by: " + filter + operatorOfFilter + value);
                 DisplayAppsFromListToConsole(DataLoader.FilteredApps);
-
+                              
                 countOfFiltering += 1;
             }
             else

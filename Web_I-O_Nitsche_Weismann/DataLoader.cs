@@ -351,6 +351,19 @@ namespace Web_I_O_Nitsche_Weismann
                     return myEnums.Genres.Weather;
             }
         }
+
+        public static void AppsToCsv()
+        {
+            using (StreamWriter writer = new StreamWriter(@"..\..\Filtered_Apps.csv"))
+            {
+                writer.WriteLine("App name;Category;Rating;Reviews;Size;Installs;Price type;Price;Content rating;Genres;Last updated;Current version;Android version");
+
+                foreach (AppData product in _filteredApps)
+                {
+                    writer.WriteLine(product.ToCsvString(';'));
+                }
+            }
+        }
         #endregion
     }
 }

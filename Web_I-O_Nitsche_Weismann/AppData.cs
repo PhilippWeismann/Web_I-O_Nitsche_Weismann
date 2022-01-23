@@ -314,7 +314,10 @@ namespace Web_I_O_Nitsche_Weismann
 
             return s;
         }
-
+        public string ToCsvString(char seperator)
+        {
+            return AppName + seperator + Category + seperator + Rating + seperator + Reviews + seperator + Size + seperator + Installs + seperator + PriceType + seperator + Price + seperator + ContentRating + seperator + Genres + seperator + LastUpdated + seperator + CurrentVersion + seperator + AndroidVersion;
+        }
         #endregion
     }
 }
